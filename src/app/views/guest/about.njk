@@ -1,0 +1,27 @@
+{% extends "./layout.njk" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/styles_about.css">
+
+    <title>About Foodfy</title>
+{% endblock %}
+
+{% block content %}
+
+        <div class="sobre">
+            <p id="top__title">{{ data_about.title_about}}</p>
+            <p>{{ data_about.description_about}}</p>
+        </div>
+
+        <div class="sobre">
+            <p id="title">{{ data_about.title_start }}</p>
+            <p>{{ data_about.description_start}}</p>
+           
+        </div>
+
+        <div class="sobre">
+            <p id="title">{{ data_about.title_preparation}}</p>
+            <p>{{ data_about.description_preparation }}</p>
+        </div>
+
+{% endblock %}

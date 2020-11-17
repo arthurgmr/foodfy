@@ -1,0 +1,48 @@
+{% extends "./layout.njk" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/styles_index.css">
+
+    <title>Foodfy</title>
+{% endblock %}
+
+{% block content %}
+
+        <section class="banner">
+            <div class= "banner__content"> 
+                <h1>{{index_banner.title_banner}}</h1>
+                <p>{{index_banner.description_banner}}</p>
+            </div>
+            
+            <div class="img__banner">
+                <img src="{{index_banner.img_banner}}" alt="Imagem de Cheff">
+            </div>            
+        </section>
+        
+        <div id="wrapper">
+            <p>Most accessed</p>
+        </div>
+
+        <section class="better__cards">            
+            {% for recipe in recipes%}
+                {% if recipe.homepage == 'yes' %}
+                    <div class="card">
+                        <div class="card__img-container {{ 'featured-wrapper' if recipe.featured }}">
+                            <a href="/recipes/{{recipe.id}}"><img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}"></a>
+                            {% if recipe.featured == 'yes' %}
+                                <div class="featured">Featured</div>                    
+                            {% endif %}
+                        </div>
+                        <div class="card__title">
+                            <p>{{recipe.title}}</p>
+                        </div>
+                        <div class="card__author">
+                            <p>{{recipe.chef_name}}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </section>
+
+{% endblock %}       
+        

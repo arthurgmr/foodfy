@@ -1,0 +1,41 @@
+{% extends "./layout.njk" %}
+
+{% block head %}    
+    <link rel="stylesheet" href="/styles_search-recipe.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <title>Foodfy</title>
+{% endblock %}
+
+
+{% block content %}
+        <section class="menu">
+            <div class="title">
+                <p>Searching by "{{filter}}"</p>
+            </div>
+        </section>
+         
+        <section class="cards">
+
+            {% for recipe in recipes %}
+            <div class="card">
+                <div class="card__img-container {{ 'featured-wrapper' if item.featured }}">
+                    <a href="/recipes/{{recipe.id}}"><img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}"></a>
+                    {% if recipe.featured == 'yes' %}
+                        <div class="featured">Featured</div>                    
+                    {% endif %}
+                </div>
+                <div class="card__title">
+                    <p>{{recipe.title}}</p>
+                </div>
+                <div class="card__author">
+                    <p>{{recipe.chef_name}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </section>
+        
+        <script src="/scripts.js"></script>
+        
+{% endblock %}

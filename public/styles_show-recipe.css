@@ -1,0 +1,79 @@
+
+.item-container {
+    width: 940px;
+    text-align: center;
+}
+
+.item-container img {
+    height: 280px;
+    width: 940px;
+    box-shadow: 0px 2px 6px -2px;
+    border-radius: 15px;
+    margin-top: 31px;
+    margin-bottom: 50px;
+    object-fit: cover;
+}
+
+.item-container h1 {
+    font-size: 36px;
+    color: #111111;
+    margin-bottom: 4px;
+}
+
+.item-author {
+    text-align: center;
+    font-size: 20px;
+    color: #777777;
+    margin-bottom: 11px;
+}
+
+h2 {   
+    text-align: left;
+    margin-top: 39px;
+    margin-bottom: 39px;
+        
+}
+
+li {
+    list-style-position: inside;
+    text-align: justify;
+    font-size: 18px;
+    color: #444444;
+    line-height: 28px;
+    
+}
+
+
+
+a {
+    color: #999999;
+    font-size: 12px;
+}
+
+a:hover {
+    color: #e9bba6;
+}
+
+.information p {
+    text-align: justify;
+    font-size: 18px;
+    color: #444444;
+    line-height: 28px;
+    margin-bottom: 50px;
+}
+
+.showingr.active, .hideingr.active, .showprep.active, .hideprep.active, .showinf.active, .hideinf.active {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+}
+
+.showingr, .hideingr, .showprep, .hideprep, .showinf, .hideinf {
+    visibility: visible;
+    cursor: pointer;
+}
+
+.ingredients.active, .preparation.active, .information.active {
+    visibility: hidden;
+    display: none;
+}

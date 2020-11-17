@@ -1,0 +1,41 @@
+{% extends "../layout_adm.njk" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/styles_adm.css">
+    <link rel="stylesheet" href="/styles_adm-recipe.css">
+
+    <title>Foodfy - Adm</title>
+{% endblock %}
+
+{% block content %}
+
+<section class="menu_index">
+
+    <div class="menu_title">
+        <p>Manager Recipes</p>
+    </div>
+
+    <div class="options">
+        <a href="/admin/recipes/create">Register Recipe</a>                        
+    </div>
+
+</section>
+
+    <section class="cards">
+    
+        {% for recipe in recipes %}
+        <div class="card_index">
+            <div class="card__img-container">
+                <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+            </div>
+            <div class="card__inf">
+                <p>{{recipe.title}}</p>
+                <p>{{recipe.chef_name}}</p>
+                <a href="/admin/recipes/{{recipe.id}}" class="view_recipe">View</a>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}       
+        

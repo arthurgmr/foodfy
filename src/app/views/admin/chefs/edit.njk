@@ -1,0 +1,44 @@
+{% extends "../layout_adm.njk" %}
+
+{% block head %}    
+    <link rel="stylesheet" href="/styles_adm.css">
+    <link rel="stylesheet" href="/styles_adm-chef.css">
+
+    <title>Foodfy - Adm - Show</title>
+{% endblock %}
+
+{% block content %}
+
+            
+    <section class="content forms">
+        
+        <form id="form-delete" method="POST" action="/admin/chefs/{{chef.id}}/?_method=DELETE">
+            <div class="options"> 
+                <input type="hidden" name="id" value="{{chef.id}}">
+                <button class="button-delete" type="submit">Delete</button>
+            </div>
+        </form>
+
+        <form method="POST" action="/admin/chefs/{{chef.id}}/?_method=PUT" enctype="multipart/form-data"> 
+            <div class="menu">
+                <div class="title">
+                    <p>Editing Chef</p>
+                </div>
+                <div class="options">                        
+                    <button type="submit">Save Changes</button>                        
+                </div>
+            </div>
+
+            {% include 'admin/chefs/fields.njk' %}
+
+            <input type="hidden" name="id" value="{{chef.id}}">
+            <input type="hidden" name="idFile" value="{{file[0].id}}">
+
+            </form>
+    </section>
+
+
+    <script src="/scripts_adm.js"></script>
+
+        
+{% endblock %}

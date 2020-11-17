@@ -1,0 +1,70 @@
+<div class="section">
+    <div>Name</div>                
+        <div>
+            <input 
+            type="text"
+            name="name"
+            value="{{chef.name}}"                
+            >
+        </div>
+</div>
+<div class="section">
+    <div>CPF</div>
+    <div>
+        <input 
+            type="text"
+            name="cpf"
+            placeholder="Type CPF number"
+            value="{{chef.cpf}}"
+            autocomplete="off"
+            onkeydown="Mask.apply(this, 'formatCPF')"
+        >
+    </div>
+</div>
+<div class="section">
+    <div>Phone</div>
+    <div>
+        <input 
+            type="text"
+            name="phone"
+            placeholder="Type number phone's"
+            value="{{chef.phone}}"
+            autocomplete="off"
+            onkeydown="Mask.apply(this, 'formatPhone')"
+        >
+    </div>
+</div>
+<div class="section">
+    <div>Email</div>                
+        <div>
+            <input 
+                type="email"
+                name="email"
+                value="{{chef.email}}"                
+            >
+        </div>
+</div>
+<div class="section-bottom">
+    <div>Avatar</div>                
+    <div id="avatar-upload">
+        <input 
+            id="avatar-input"
+            type="file"
+            name="avatar"
+            accept="image/*"
+            onchange="PhotosUploadChef.handleFileInput(event)"
+        >
+        <p>Send Avatar</p>
+    </div>
+    <div id="avatar-preview">
+        {% if file %}
+            <div class="photo" id="{{file.id}}">
+                <img src="{{file[0].src}}" alt="{{file[0].name}}">
+                <i class="material-icons"
+                    onclick="PhotosUploadChef.removeOldPhoto(event)"
+                >close</i>
+            </div>
+        {% endif %}        
+    </div>
+</div>
+

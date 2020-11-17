@@ -1,0 +1,67 @@
+{% extends "../layout_adm.njk" %}
+
+{% block head %}    
+    <link rel="stylesheet" href="/styles_adm.css">
+    <link rel="stylesheet" href="/styles_adm-chef.css">
+
+    <title>Foodfy - Adm - Show</title>
+{% endblock %}
+
+
+{% block content %}
+
+    <section class="menu">
+        <div class="title">
+            <p>Chef: {{chef.name}}</p>
+        </div>
+        <div class="options">
+            <a href="/admin/chefs/{{chef.id}}/edit">Edit Chef</a>
+        </div>
+    </section>
+
+    <section class="content">          
+        <div class="container">
+            <div class="img_info">
+                <img id="img_chef" src="{{file[0].src}}" alt="{{file[0].name}}">
+                <div class="info">
+                    <h3>Phone</h3>
+                        <p>{{chef.phone}}</p>
+                    <h3>Email</h3>
+                        <p>{{chef.email}}</p>
+                    <h3>CPF Number</h3>
+                        <p>{{chef.cpf}}</p>
+                </div>
+            </div>
+        
+            <h1>{{chef.name}}</h1>
+            {% if chef.total_recipes == 1 %}
+                <p>{{chef.total_recipes}} Recipe</p>
+            {% else %}
+                <p>{{chef.total_recipes}} Recipes</p>
+            {% endif %}
+        </div>        
+    </section>
+
+    <section class="content_recipe">  
+        <h3>Recipes</h3>            
+        <div class="cards">
+            {% for recipe in recipes %}
+            <div class="card_index">
+                <div class="card__img-container">
+                    <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+                </div>
+                <div class="card__inf">
+                    <p>{{recipe.title}}</p>
+                    <p>{{chef.name}}</p>
+                    <a href="/admin/recipes/{{recipe.id}}" class="view_recipe">Visualizar</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>    
+
+ 
+
+    <script src="/scripts_adm.js"></script>
+        
+{% endblock %}

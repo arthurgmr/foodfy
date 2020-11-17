@@ -1,0 +1,120 @@
+const db = require("../../config/db")
+const { age, date} = require("../../lib/utils.js")
+
+ 
+ module.exports = {
+    all(data) {
+        
+        return db.query(`
+        SELECT recipes.*, chefs.name AS chef_name 
+        FROM recipes
+        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        GROUP BY recipes.id, chefs.name`)
+    },
+
+    create(data) {
+        const query = `
+        INSERT INTO recipes (
+            title,
+            chef_id,
+            featured,
+            homepage,
+            ingredients,
+            preparation,
+            information, 
+            created_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)   
+        RETURNING id    
+    `
+        const values = [
+            data.title,
+            data.chef_id,
+            data.featured,
+            data.homepage,
+            data.ingredients,
+            data.preparation,
+            data.information,
+            date(Date.now()).iso
+        ]
+
+        return db.query(query, values) 
+    },
+
+    find(id) {
+        return db.query(`
+        SELECT recipes.*, chefs.name AS chef_name 
+        FROM recipes
+        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        WHERE recipes.id = $1`, [id])
+    },
+
+    findBy(filter) {
+        return db.query(`
+        SELECT recipes.*, chefs.name AS chef_name 
+        FROM recipes
+        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        WHERE recipes.title ILIKE '%${filter}%'
+        OR chefs.name ILIKE '%${filter}%'`)
+    },
+
+    update(data) {
+        const query = `
+            UPDATE recipes SET
+            image=($1),
+            title=($2),
+            chef_id=($3),
+            featured=($4),
+            homepage=($5),
+            ingredients=($6),
+            preparation=($7),
+            information=($8)
+            WHERE id = $9
+        `
+
+        const values = [
+            data.image,
+            data.title,
+            data.chef_id,
+            data.featured,
+            data.homepage,
+            data.ingredients,
+            data.preparation,
+            data.information,
+            data.id
+        ]
+
+    return db.query(query, values)
+    },
+
+    delete(id) {
+        return db.query(`DELETE FROM recipes WHERE id=$1`, [id])
+    },
+
+    chefsSelectOptions() {
+       return db.query(`SELECT name, id FROM chefs`)
+    },
+
+    paginate(params) {
+        const { limit, offset } = params
+
+        let query = `
+        SELECT recipes.*, (
+            SELECT count(*) FROM recipes
+        ) AS total, chefs.name AS chef_name 
+        FROM recipes
+        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        LIMIT $1 OFFSET $2`
+
+        return db.query(query, [limit, offset])
+    
+        
+    },
+
+    files(recepeId) {
+        return db.query (`
+            SELECT recipe_files.*, files.*
+            FROM recipe_files
+            LEFT JOIN files ON (recipe_files.file_id = files.id)
+            WHERE recipe_files.recipe_id = $1`, [recepeId])
+    }
+}

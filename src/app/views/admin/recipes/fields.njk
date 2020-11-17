@@ -1,0 +1,158 @@
+<div class="section-images">
+    <div>Recipe image</div>                
+    <div class="photos">
+        <div id="photos-upload">
+            <input id="photos-input"
+                type="file"
+                name="images"
+                multiple
+                accept="image/*"
+                onchange="PhotosUpload.handleFileInput(event)"            
+            >
+            <i class="material-icons">add</i>
+        </div>
+        <div id="photos-preview">
+            {% if files %}
+                {% for image in files %}
+                    <div class="photo" id="{{image.id}}">
+                        <img src="{{image.src}}" alt="{{image.name}}">
+                        <i class="material-icons">close
+                        </i>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div>Recipe title</div>                
+        <div>
+            <input 
+                type="text"
+                name="title"
+                value="{{recipe.title}}"                
+            >
+        </div>
+</div>
+<div class="section">
+    <div>Chef</div>                
+        <div>
+            <select name="chef_id">
+                <option value="" disabled hidden selected>Select a Chef</option>
+                {% for chef in chefsOption %}
+                    <option value="{{chef.id}}" {% if recipe.chef_id == chef.id%}selected{%endif%}>
+                        {{chef.name}}
+                    </option> 
+                {% endfor %}
+            </select>
+        </div>
+    
+
+</div>
+
+<div class="section">
+    <div>Recipe featured?</div>                
+        <div>
+            <span>
+                <input 
+                type="radio"
+                name="featured"
+                value="yes"
+                {% if recipe.featured == 'yes' %}
+                    checked
+                {% endif %}                
+                > Yes
+            </span>
+            <span>
+                <input 
+                type="radio"
+                name="featured"
+                value="no"
+                {% if recipe.featured == 'no' %}
+                    checked
+                {% endif %}                                     
+                > No
+            </span>
+        </div>
+</div>
+<div class="section">
+    <div>Insert recipe in homepage?</div>                
+        <div>
+            <span>
+                <input 
+                type="radio"
+                name="homepage"
+                value="yes"
+                {% if recipe.homepage == 'yes' %}
+                    checked
+                {% endif %}                
+                > Yes
+            </span>
+            <span>
+                <input 
+                type="radio"
+                name="homepage"
+                value="no"
+                {% if recipe.homepage == 'no' %}
+                    checked
+                {% endif %}                                     
+                > No
+            </span>
+        </div>
+</div>
+<div class="section" id="ingredients">
+    <div>Ingredients</div>
+    {% if recipe.ingredients %}    
+        {% for ingredient in recipe.ingredients %}                
+            <div class="ingredient">
+                <input 
+                type="text"
+                name="ingredients[]"
+                value="{{ingredient}}"                
+                />
+            </div>
+        {% endfor %}
+    {% else %}                       
+            <div class="ingredient">
+                <input 
+                type="text"
+                name="ingredients[]"
+                value=""                
+                />
+            </div>
+    {% endif %}
+</div>
+<button type="button" class="add-ingredient">Add new ingredient</button>
+<button type="button" class="remove-ingredient">Remove ingredient</button>
+<div class="section" id="preparations">
+    <div>Preparation Method</div>
+    {% if recipe.preparation %}    
+        {% for preparation in recipe.preparation %}
+            <div class="preparation">
+                <input 
+                type="text"
+                name="preparation[]"
+                value="{{preparation}}"
+                />
+            </div>
+        {% endfor %}
+    {% else %}
+            <div class="preparation">
+                <input 
+                type="text"
+                name="preparation[]"
+                value=""
+                />
+            </div>
+    {% endif %}
+</div>
+<button type="button" class="add-preparation">Add new method</button>
+<button type="button" class="remove-preparation">Remove method</button>
+<div class="section" >
+    <div>More informations</div>                
+    <div class="more-information">
+        <textarea name="information" placeholder="Type recipe instruction">{{recipe.information}}</textarea>
+    </div>                
+</div>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/global.css">
+
+{% block head %}
+{% endblock %}
+
+    </head>
+
+    <body>
+        <header>
+            <div>
+                <a id="logo" href="/">Foodfy</a>
+                <a id="menu" href="/about">About</a>
+                <a id="menu" href="/recipes">Recipes</a>
+                <a id="menu" href="/chefs">Chefs</a>
+                <form action="/search-recipe" method="GET">
+                    <input 
+                        type="text"
+                        name="filter"
+                        placeholder="Search Recipe or Chef"
+                        value="{{filter}}"
+                    >
+                    <button type="submit">Search</button>
+                
+                </form>
+            </div>
+        </header>
+                
+{% block content %}
+    
+{% endblock %}
+        
+        <footer>
+            <p>All rights reserved,  Foodfy's recipes.</p>
+        </footer>
+
+    <script src="/scripts.js"></script>
+
+    </body>
+    
+</html>
