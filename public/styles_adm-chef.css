@@ -208,6 +208,7 @@ input {
     width: 139px;
     margin: 0;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .forms .section-bottom #avatar-upload p {
@@ -221,6 +222,7 @@ input {
 
     width: 100%;
     text-align: center;
+    cursor: pointer;
 
 
 }

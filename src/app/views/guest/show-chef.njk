@@ -19,7 +19,7 @@
     <section class="content-chef">          
         <div class="container-chef">
         
-            <img id="img_chef" src="{{chef.avatar_url}}" alt="Imagem de {{chef.name}}">
+            <img id="img_chef" src="{{file[0].src}}" alt="Image off {{chef.name}}">
             <h1>{{chef.name}}</h1>
             {% if chef.total_recipes == 1 %}
                 <p>{{chef.total_recipes}} Recipe</p>
@@ -35,12 +35,12 @@
             {% for recipe in recipes %}
             <div class="card_index">
                 <div class="card__img-container">
-                    <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+                    <img src="{{recipe.image}}" alt="Image off {{recipe.title}}">
                 </div>
                 <div class="card__inf">
                     <p>{{recipe.title}}</p>
                     <p>{{chef.name}}</p>
-                    <a href="/guest/recipes/{{recipe.id}}" class="view_recipe">Visualizar</a>
+                    <a href="/recipes/{{recipe.id}}" class="view_recipe">View</a>
                 </div>
             </div>
             {% endfor %}

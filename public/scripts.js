@@ -94,6 +94,7 @@ if(ingredients) {
     showAndHideIngredients()
 }
 
+/* SHOW AND HIDE BUTTON*/
 /* PREPARATION */
 
 function showAndHidePreparation () {
@@ -122,6 +123,7 @@ if(preparation) {
     showAndHidePreparation ()
 }
 
+/* SHOW AND HIDE BUTTON*/
 /* INFORMATION */
 
 function showAndHideInformation() {
@@ -146,6 +148,42 @@ const information = document.querySelector('.information')
 
 if(information) {
     showAndHideInformation()
+}
+
+// SET IMAGE ON RECIPES
+
+const ImageGallery = {
+    highlight: document.querySelector('.item-container .highlight > img'),
+    previews: document.querySelectorAll('.gallery-preview img'),
+    setImage(e) {
+        const { target} = e
+
+        ImageGallery.previews.forEach(preview => preview.classList.remove('active'))
+        target.classList.add('active')
+
+        ImageGallery.highlight.src = target.src
+        Lightbox.image.src = target.src
+
+    }
+}
+
+const Lightbox = {
+    target: document.querySelector('.highlight .lightbox-target'),
+    image: document.querySelector('.lightbox-target img'),
+    closeButton: document.querySelector('.lightbox-target a.lightbox-close'),
+
+    open() {
+        Lightbox.target.style.opacity = 1
+        Lightbox.target.style.top = 0
+        Lightbox.target.style.bottom = 0
+    },
+    close() {
+        Lightbox.target.style.opacity = 0
+        Lightbox.target.style.top ="-100%"
+        Lightbox.target.bottom = "initial"
+
+    }
+
 }
 
 

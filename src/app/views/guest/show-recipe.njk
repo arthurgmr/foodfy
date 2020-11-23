@@ -8,17 +8,50 @@
 
 
 {% block content %}
-         
                  
     <div class="item-container">
     
-        <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+        <div class="highlight">
+            {% if not files[0] %}
+                <img src="http://placehold.it/500x500?text=RECIPE NO IMAGE"/>
+            {% else %}
+            <img 
+                src="{{files[0].src}}" 
+                alt="{{files[0].name}}"
+                onClick="Lightbox.open()"
+            >
+            {% endif %}
+        
+
+            <div class="lightbox-target">
+                <img src="{{files[0].src}}" alt="{{files[0].name}}">
+                <a 
+                    href="#"
+                    class="lightbox-close"
+                    onClick="Lightbox.close()"
+                >
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <div class="gallery-preview">
+                    {% for image in files %}
+                    <img 
+                        src="{{image.src}}" 
+                        alt="{{image.namo}}"
+                        {%if loop.index0 == 0%}
+                            class="active"
+                        {%endif%}
+                        onClick="ImageGallery.setImage(event)"
+                    >
+                    {% endfor %}
+            </div>
+        </div>
         
         <h1>{{recipe.title}}</h1>   
 
         <p class="item-author">{{recipe.chef_name}}</p>
 
-        <h2>Ingredientes <a class="showingr active">MOSTRAR</a> <a class="hideingr">ESCONDER</a></h2>
+        <h2>Ingredients <a class="showingr active">SHOW</a> <a class="hideingr">HIDDEN</a></h2>
 
             <div class="ingredients"> 
                 <ul>
@@ -28,7 +61,7 @@
                 </ul>
             </div>
 
-        <h2>Mode de preparo <a class="showprep">MOSTRAR</a> <a class="hideprep active">ESCONDER</a></h2>
+        <h2>Mode preparation <a class="showprep">SHOW</a> <a class="hideprep active">HIDDEN</a></h2>
 
             <div class="preparation active"> 
                 <ul>
@@ -38,7 +71,7 @@
                 </ul>
             </div>
 
-        <h2>Informações adicionais <a class="showinf active">MOSTRAR</a> <a class="hideinf">ESCONDER</a></h2>
+        <h2>More Informations <a class="showinf active">SHOW</a> <a class="hideinf">HIDDEN</a></h2>
 
             <div class="information"> 
                 <p>{{recipe.information}}<p>

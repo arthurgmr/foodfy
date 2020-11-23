@@ -60,19 +60,17 @@ const { age, date} = require("../../lib/utils.js")
     update(data) {
         const query = `
             UPDATE recipes SET
-            image=($1),
-            title=($2),
-            chef_id=($3),
-            featured=($4),
-            homepage=($5),
-            ingredients=($6),
-            preparation=($7),
-            information=($8)
-            WHERE id = $9
+            title=($1),
+            chef_id=($2),
+            featured=($3),
+            homepage=($4),
+            ingredients=($5),
+            preparation=($6),
+            information=($7)
+            WHERE id = $8
         `
 
         const values = [
-            data.image,
             data.title,
             data.chef_id,
             data.featured,
