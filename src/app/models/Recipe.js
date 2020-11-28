@@ -9,7 +9,8 @@ const { age, date} = require("../../lib/utils.js")
         SELECT recipes.*, chefs.name AS chef_name 
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        GROUP BY recipes.id, chefs.name`)
+        GROUP BY recipes.id, chefs.name
+        ORDER BY updated_at DESC `)
     },
 
     create(data) {
@@ -21,9 +22,8 @@ const { age, date} = require("../../lib/utils.js")
             homepage,
             ingredients,
             preparation,
-            information, 
-            created_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)   
+            information
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7)   
         RETURNING id    
     `
         const values = [
@@ -33,8 +33,7 @@ const { age, date} = require("../../lib/utils.js")
             data.homepage,
             data.ingredients,
             data.preparation,
-            data.information,
-            date(Date.now()).iso
+            data.information
         ]
 
         return db.query(query, values) 
