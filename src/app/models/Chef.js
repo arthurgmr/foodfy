@@ -10,7 +10,7 @@ const { age, date} = require("../../lib/utils.js")
         LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
 		LEFT JOIN files ON (chefs.file_id = files.id)
         GROUP BY chefs.id, files.path
-        ORDER BY total_recipes DESC `)
+        ORDER BY created_at DESC `)
     },
 
     create(data, fileId) {
@@ -102,7 +102,8 @@ const { age, date} = require("../../lib/utils.js")
        return db.query(`
             SELECT *
             FROM recipes
-            WHERE recipes.chef_id = $1`, [id])
+            WHERE recipes.chef_id = $1
+            ORDER BY created_at DESC`, [id])
     },
 
     file(id) {

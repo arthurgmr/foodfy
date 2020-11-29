@@ -10,7 +10,7 @@ const { age, date} = require("../../lib/utils.js")
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         GROUP BY recipes.id, chefs.name
-        ORDER BY updated_at DESC `)
+        ORDER BY created_at DESC `)
     },
 
     create(data) {
@@ -100,6 +100,7 @@ const { age, date} = require("../../lib/utils.js")
         ) AS total, chefs.name AS chef_name 
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        ORDER BY updated_at DESC
         LIMIT $1 OFFSET $2`
 
         return db.query(query, [limit, offset])
