@@ -18,9 +18,9 @@ CREATE TABLE "recipes" (
 CREATE TABLE "chefs" (
   "id" SERIAL PRIMARY KEY,
   "name" text NOT NULL,
-  "cpf" text,
-  "phone" text,
-  "email" text,
+  "cpf" text NOT NULL,
+  "phone" text NOT NULL,
+  "email" text NOT NULL,
   "file_id" int NOT NULL,
   "created_at" timestamp DEFAULT (now())
   "updated_at" timestamp DEFAULT (now())
