@@ -1,4 +1,4 @@
-const { age, date} = require("../../lib/utils.js")
+const { date, formatCpf, formatPhone} = require("../../lib/utils.js")
 const Chef = require("../models/Chef")
 const File = require("../models/File")
 const Recipe = require("../models/Recipe.js")
@@ -7,6 +7,7 @@ module.exports = {
 
     async index(req, res){
         try {
+            //show all chef;
             let results = await Chef.all()
             const chefs = results.rows.map(chef => ({
                 ...chef,
@@ -26,20 +27,30 @@ module.exports = {
     async post(req, res){
         const keys = Object.keys(req.body)
 
+        //checking fill in all fields;
         for (key of keys) {
-        if (req.body[key] == "") {
-            return res.send('Please, fill all fields!')
+            if (req.body[key] == "") {
+                return res.render('admin/chefs/create', {
+                    chef: req.body,
+                    error: 'Please, fill all fields!'
+                })
             }
         }
 
+        //checking send file;
         if(req.files.length == 0)
-        return res.send('Please, send at least one image!')
+            return res.render('admin/chefs/create', {
+                chef: req.body,
+                error: 'Please, send at least one image!'
+            })
 
         try {
             
+            //save file;
             let results = await File.create(...req.files)
             const fileId = results.rows[0].id
             
+            //save chef;
             results = await Chef.create(req.body, fileId)
             const chefId = results.rows[0].id
 
@@ -62,6 +73,11 @@ module.exports = {
 
             //format date;
             chef.created_at = date(chef.created_at).format
+            //format cpf;
+            chef.cpf = formatCpf(chef.cpf)
+            //format phone;
+            chef.phone = formatPhone(chef.phone)
+
 
             //get file of chef and add src;
             results = await Chef.file(chef.file_id)
@@ -82,7 +98,7 @@ module.exports = {
                 return filesRecipes[0]
             }
 
-            //
+            //promise to wait run function getImageRecipe;
             const filesRecipesPromise = recipes.map(async recipe => {
                 recipe.image = await getImageRecipe(recipe.id)
                 return recipe
@@ -100,11 +116,13 @@ module.exports = {
 
     async edit(req, res){
         try {
+            //find chef with id;
             let results = await Chef.find(req.params.id)
             const chef = results.rows[0]
 
-            if(!chef) return res.send("Ricipe not found!")
+            if(!chef) return res.send("Ricipe not found!") //create page of not found;
 
+            //get file of chef and add src;
             results = await Chef.file(chef.file_id)
             const file = results.rows.map(file => ({
                 ...file,
@@ -122,25 +140,32 @@ module.exports = {
     async put(req, res){
         const keys = Object.keys(req.body)
 
+        //checking fill in all fields;
         for (key of keys) {
-        if (req.body[key] == "") {
-            return res.send('Please, fill all fields!')
+            if (req.body[key] == "") {
+                return res.render('admin/chefs/create', {
+                    chef: req.body,
+                    error: 'Please, fill all fields!'
+                })
             }
         }
-        console.log(req.body)
 
         try {
-    
+            //check exists a send new file;
             if(req.files.length != 0) {
+                //if yes, save new file;
                 let results = await File.create(...req.files)
                 const fileId = results.rows[0].id
-    
+            
+                //delete archive old;    
                 await File.delete(req.body.idFile)
-    
+                
+                //update chef with a new fileId;    
                 await Chef.updateFile(req.body, fileId)
     
             } else {
-    
+                
+                //update chef without fileId;
                 await Chef.updateFields(req.body)
             } 
     

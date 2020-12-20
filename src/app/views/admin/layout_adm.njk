@@ -2,7 +2,7 @@
 
 <html>
     <head>
-    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/styles/global.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 {% block head %}
@@ -11,13 +11,9 @@
     </head>
 
     <body>
-        <header>
-            <div>
-                <a id="logo" href="/admin/recipes">Foodfy</a>
-                <a id="menu" href="/admin/recipes">RECIPES</a>
-                <a id="menu" href="/admin/chefs">CHEFS</a>                
-            </div>
-        </header>
+        {%include "admin/parts/messages.njk"%}
+
+        {%include "admin/parts/header.njk"%}
                 
 {% block content %}    
 {% endblock %}

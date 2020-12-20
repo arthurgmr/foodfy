@@ -21,19 +21,18 @@ const { age, date} = require("../../lib/utils.js")
             phone,
             email,
             file_id,
-            created_at
-        ) VALUES ($1, $2, $3, $4, $5, $6)   
+        ) VALUES ($1, $2, $3, $4, $5)   
         RETURNING id
     `
-    
-    
+        data.cpf = data.cpf.replace(/\D/g,"")
+        data.phone = data.phone.replace(/\D/g,"")
+        
         const values = [
             data.name,
             data.cpf,
             data.phone,
             data.email,
-            fileId,            
-            date(Date.now()).iso
+            fileId,
         ]
 
     return db.query(query, values)
