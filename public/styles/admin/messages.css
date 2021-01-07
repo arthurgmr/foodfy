@@ -1,0 +1,28 @@
+@keyframes rightmessage {
+    to {
+        right: -50px;
+        opacity: 0;
+    }
+
+}
+
+.messages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    position: absolute;
+    right: 15px;
+    top: 30px;
+    width: 300px;
+    height: 60px;
+    color: white;
+    opacity: 1;
+
+    animation: rightmessage 400ms 5s ease-out forwards;
+}
+
+.messages.error {
+    background: #DC4747;
+}
