@@ -47,8 +47,14 @@ async post(req, res){
     const keys = Object.keys(req.body)
 
     for (key of keys) {
-    if (req.body[key] == "") {
-        return res.send('Please, fill all fields!')
+        if (req.body[key] == "") {
+            let results = await Recipe.chefsSelectOptions()
+            const chefsOption = results.rows
+            return res.render('admin/recipes/create', {
+                chef: req.body,
+                chefsOption,
+                error: 'Please, fill all fields!'
+            })
         }
     }
 
@@ -127,8 +133,14 @@ async put(req, res){
     const keys = Object.keys(req.body)
 
     for (key of keys) {
-    if (req.body[key] == "" && key != "removed_files") {
-        return res.send('Please, fill all fields!')
+        if (req.body[key] == "" && key != "removed_files") {
+            let results = await Recipe.chefsSelectOptions()
+            const chefsOption = results.rows
+            return res.render('admin/recipes/create', {
+                chef: req.body,
+                chefsOption,
+                error: 'Please, fill all fields!'
+            })
         }
     }
 
