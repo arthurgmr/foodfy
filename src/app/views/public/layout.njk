@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {%include "public/parts/styles.njk"%}
+
+{% block head %}
+{% endblock %}
+
+    </head>
+
+    <body>
+
+        {%include "public/parts/messages.njk"%}
+
+        {%include "public/parts/header.njk"%}
+                
+{% block content %}
+    
+{% endblock %}
+        
+        {%include "public/parts/footer.njk"%}
+
+    <script src="/scripts.js"></script>
+
+    </body>
+    
+</html>

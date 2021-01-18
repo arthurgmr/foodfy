@@ -1,4 +1,4 @@
-const { age, date} = require("../../lib/utils.js")
+const { date } = require("../../lib/utils.js")
 const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
 
@@ -31,10 +31,13 @@ module.exports = {
 
             const allRecipe = await Promise.all(filesPromise)
 
-            return res.render("guest/index",{recipes: allRecipe, index_banner} )
+            return res.render("public/index",{recipes: allRecipe, index_banner} )
 
         }catch(err) {
             console.log(err)
+            return res.render("public/index", {
+                error: "Some error happened!"
+            })
         }
 
     },
@@ -96,7 +99,7 @@ module.exports = {
             'sodales eros. Nunc ut nulla faucibus enim ultricies euismod.'
             ],
         }       
-            return res.render("guest/about", {data_about})
+            return res.render("public/about", {data_about})
     },
 
     async recipes(req, res) {
@@ -134,10 +137,13 @@ module.exports = {
                 total_recipes: Math.ceil(recipes[0].total / limit),
                 page
             }
-            return res.render("guest/recipes",{recipes: allRecipe, pagination} )
+            return res.render("public/recipes",{recipes: allRecipe, pagination} )
 
         }catch(err) {
             console.log(err)
+            return res.render("public/recipes", {
+                error: "Some error happened!"
+            })
         }
     },
 
@@ -154,10 +160,13 @@ module.exports = {
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
             }))
 
-            return res.render("guest/show-recipe", {recipe, files})
+            return res.render("public/show-recipe", {recipe, files})
 
         }catch(err) {
             console.log(err)
+            return res.render("public/show-recipe", {
+                error: "Some error happened!"
+            })
         }
 
     },
@@ -170,10 +179,13 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
             }))
     
-            return res.render("guest/chefs", {chefs})
+            return res.render("public/chefs", {chefs})
 
         }catch(err) {
             console.log(err)
+            return res.render("public/chefs", {
+                error: "Some error happened!"
+            })
         }       
 
     },
@@ -219,11 +231,15 @@ module.exports = {
 
             console.log(recipes)
                     
-            return res.render("guest/show-chef", {chef, recipes: recipesWithImages, file})
+            return res.render("public/show-chef", {chef, recipes: recipesWithImages, file})
 
         }catch(err) {
             console.log(err)
-        }    },
+            return res.render("public/show-chef", {
+                error: "Some error happened!"
+            })
+        }    
+    },
 
     async searchRecipe(req, res) {
         const {filter} = req.query
@@ -240,10 +256,13 @@ module.exports = {
                     src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
                 }))
                 
-            return res.render("guest/search-recipe", {recipes,files, filter})
+            return res.render("public/search-recipe", {recipes,files, filter})
         
             }catch(err) {
                 console.log(err)
+                return res.render("public/search-recipe", {
+                    error: "Some error happened!"
+                })
             }
 
         } else {

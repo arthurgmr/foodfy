@@ -51,13 +51,25 @@ CREATE TABLE "recipe_files" (
   "file_id" int
 );
 
-ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id");
+ALTER TABLE "recipe_files" 
+ADD FOREIGN KEY ("recipe_id") 
+REFERENCES "recipes" ("id")
+ON DELETE CASCADE;
 
-ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id");
+ALTER TABLE "recipe_files" 
+ADD FOREIGN KEY ("file_id") 
+REFERENCES "files" ("id")
+ON DELETE CASCADE;
 
-ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id");
+ALTER TABLE "chefs" 
+ADD FOREIGN KEY ("file_id") 
+REFERENCES "files" ("id")
+ON DELETE CASCADE;
 
-ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE "recipes" 
+ADD FOREIGN KEY ("user_id") 
+REFERENCES "users" ("id")
+ON DELETE CASCADE;
 
 --creating procedure
 CREATE FUNCTION trigger_set_timestamp()
