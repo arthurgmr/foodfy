@@ -4,7 +4,9 @@ const routes = express.Router()
 const PublicController = require('../app/controllers/PublicController')
 
 const recipes = require('./recipes')
-const chef = require('./chef')
+const chefs = require('./chefs')
+const users = require('./users')
+//const profile = require('./profile)
 
 routes.get("/", PublicController.index)
 routes.get("/about", PublicController.about)
@@ -15,8 +17,10 @@ routes.get("/chefs", PublicController.chefs)
 routes.get("/chefs/:id", PublicController.chefsShow)
 
 routes.use("/admin/recipes", recipes)
+routes.use("/admin/chefs", chefs)
 
-routes.use("/admin/chefs", chef)
+routes.use("/admin/users", users)
+//routes.user("/admin/profile", profile)
 
 //alias
 routes.get('/accounts', function (req, res) {

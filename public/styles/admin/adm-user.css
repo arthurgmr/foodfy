@@ -1,0 +1,30 @@
+/* === INDEX USERS === */
+
+/* === SHOW USERS === */
+
+/* === FORMS USER === */
+
+/* cancel button */
+.user-register.content.forms .options a {
+    background-color: #8A8A8A;
+}
+
+.user-register.content.forms .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+}
+
+.user-register.content.forms .fields .section {
+    margin: 0;
+}
+
+.user-register.content.forms .fields .section .checkbox {
+display: flex;
+align-items: center;
+}
+
+.user-register.content.forms .fields .section .checkbox input {
+display: none
+}
+

@@ -1,3 +1,4 @@
+/* === INDEX CHEFS === */
 
 .menu_index {
     display: grid;
@@ -141,69 +142,21 @@
 
 /* === FORMS CHEF=== */
 
-/* buttons save and delete */
-.options button,
-.options a {
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #6558C3;
-    color: #FFFFFF;
-    padding: 9px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.options .button-delete {
-    background-color: #DC4747;
-    position: absolute;
-    margin-top: 55px;
-    margin-left: 691px;
-
-}
-
-/* width forms */
-.forms {
-    width: 940px;
-    text-align: left;    
-}
-
-/* questions title */
-.forms .section div:nth-child(1),
-.forms .section-bottom div:nth-child(1) { 
+/* input section bottom (avatar) */
+.chef.content.forms .section-bottom div:nth-child(1) { 
     font-weight: bold;
     font-size: 16px;
     color: #111111;
     margin-top: 30px;
 }
 
-/* input of fomrs */
-
-.forms .section div:nth-child(2) {
-    background: #FFFFFF;
-    border: 1px solid #DDDDDD;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #111111;
-    padding: 10px 20px;
-    margin-top: 10px;
-}
-
-.forms .section-bottom {
+.chef.content.forms .section-bottom {
     margin-bottom: 50px;
-}
-
-input {
-    width: 100%;
-    outline: none;
-    font-size: 16px;
-    color: #111111;
-    line-height: 24px;
 }
 
 /* avatar upload */
 
-.forms .section-bottom #avatar-upload {
+.chef.content.forms .section-bottom #avatar-upload {
     position: relative;
     width: 139px;
     margin: 0;
@@ -211,7 +164,7 @@ input {
     cursor: pointer;
 }
 
-.forms .section-bottom #avatar-upload p {
+.chef.content.forms .section-bottom #avatar-upload p {
     padding-top: 8px;
     padding-bottom: 8px;
     border-radius: 4px;
@@ -227,7 +180,7 @@ input {
 
 }
 
-.forms .section-bottom #avatar-input {
+.chef.content.forms .section-bottom #avatar-input {
     position: absolute;
 
     top: 0;
@@ -244,7 +197,7 @@ input {
 
 /* photo upload */
 
-.forms .section-bottom #avatar-preview .photo {
+.chef.content.forms .section-bottom #avatar-preview .photo {
     max-width: 149px;
     margin: 0;
     margin-top: 10px;
@@ -252,7 +205,7 @@ input {
     position: relative;
 }
 
-.forms .section-bottom #avatar-preview .photo img {
+.chef.content.forms .section-bottom #avatar-preview .photo img {
     width: 149px;
     height: 149px;
 
@@ -261,7 +214,7 @@ input {
     box-shadow: 0px 2px 6px -2px;
 }
 
-.forms .section-bottom #avatar-preview .photo i {
+.chef.content.forms .section-bottom #avatar-preview .photo i {
     position: absolute;
     top: 0;
 
@@ -281,7 +234,7 @@ input {
     transition: 200ms;
 }
 
-.forms .section-bottom #avatar-preview .photo:hover i {
+.chef.content.forms .section-bottom #avatar-preview .photo:hover i {
     opacity: 1;
 }
 

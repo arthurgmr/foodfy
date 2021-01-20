@@ -1,5 +1,5 @@
 
-/* === INDEX RECIPE === */
+/* === INDEX RECIPES === */
 
 .menu_index {
     display: grid;
@@ -226,47 +226,18 @@ li {
 
 /* === FORMS RECIPE === */
 
-/* buttons save and delete */
-.options button,
-.options a {
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #6558C3;
-    color: #FFFFFF;
-    padding: 9px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.options .button-delete {
-    background-color: #DC4747;
-    position: absolute;
-    margin-top: 55px;
-    margin-left: 691px;
-
-}
-
-/* width forms */
-.forms {
-    width: 940px;
-    text-align: left;    
-}
 
 /* questions title */
-.forms .section div:nth-child(1),
-.forms .section-images {
+.recipe.content.forms .section-images {
     font-weight: bold;
     font-size: 16px;
     color: #111111;
     margin-top: 30px;
 }
 
-/* input of fomrs */
-
-.forms .section div:nth-child(2),
-.ingredient,
-.preparation {
+/* inputs ingredients and preparation */
+.recipe.content.forms .ingredient,
+.recipe.content.forms .preparation {
     background: #FFFFFF;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
@@ -276,8 +247,7 @@ li {
     margin-top: 10px;
 }
 
-select,
-input {
+.recipe.content.forms select {
     width: 100%;
     outline: none;
     font-size: 16px;
@@ -286,7 +256,7 @@ input {
     background-color: white;
 }
 
-.forms .section span {
+.recipe.content.forms .section span {
     padding: 8px 16px;
     border: 1px solid #DDDDDD;
     color: 6558C3;
@@ -299,22 +269,22 @@ input {
     font-size: 12px;
 }
 
-.forms .section:nth-child(5) div:nth-child(2),
-.forms .section:nth-child(6) div:nth-child(2) {
+.recipe.content.forms .section:nth-child(5) div:nth-child(2),
+.recipe.content.forms .section:nth-child(6) div:nth-child(2) {
     border: none;
     padding: 0;
     margin: 0;    
 }
 
-.forms .section:nth-child(5) input,
-.forms .section:nth-child(6) input {
+.recipe.content.forms .section:nth-child(5) input,
+.recipe.content.forms .section:nth-child(6) input {
     cursor: pointer;
     width: 16px;    
 }
 
 /* buttons add */
-.add-ingredient,
-.add-preparation  {
+.recipe.content.forms .add-ingredient,
+.recipe.content.forms .add-preparation  {
     font-weight: bold;
     font-size: 12px;
     color: #6558C3;
@@ -325,8 +295,8 @@ input {
 }
 
 /* buttons remove */
-.remove-ingredient,
-.remove-preparation  {
+.recipe.content.forms .remove-ingredient,
+.recipe.content.forms .remove-preparation  {
     font-weight: bold;
     font-size: 12px;
     color: #DC4747;
@@ -338,7 +308,7 @@ input {
 }
 
 /* textarea format */
-textarea {
+.recipe.content.forms textarea {
     width: 100%;
     height: 257px;
     resize: none;
@@ -350,20 +320,20 @@ textarea {
     outline: none;
 }
 
-.more-information {
+.recipe.content.forms .more-information {
     height: 257px;
     margin-bottom: 50px;
 }
 
 /* photos upload */
 
-.forms .section-images .photos {
+.recipe.content.forms .section-images .photos {
     display: grid;
     grid-template-columns: 149px 1fr;
     grid-gap: 8px;
 }
 
-.forms .section-images #photos-upload {
+.recipe.content.forms .section-images #photos-upload {
     position: relative;
     width: 149px;
     height: 149px;
@@ -379,12 +349,12 @@ textarea {
     border-radius: 3.5px;
 }
 
-.forms .section-images #photos-upload i {
+.recipe.content.forms .section-images #photos-upload i {
     color: #777777;
     font-size: 400%;
 }
 
-.forms .section-images #photos-input {
+.recipe.content.forms .section-images #photos-input {
     position: absolute;
     display: block;
     overflow: hidden;
@@ -394,7 +364,7 @@ textarea {
     cursor: pointer;
 }
 
-.forms .section-images #photos-preview {
+.recipe.content.forms .section-images #photos-preview {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 8px;
@@ -402,7 +372,7 @@ textarea {
     margin-top: 10px;
 }
 
-.forms .section-images #photos-preview img{
+.recipe.content.forms .section-images #photos-preview img{
     width: 149px;
     height: 149px;
 
@@ -411,11 +381,11 @@ textarea {
     box-shadow: 0px 2px 6px -2px;
 }
 
-.forms .section-images #photos-preview .photo {
+.recipe.content.forms .section-images #photos-preview .photo {
     position: relative;
 }
 
-.forms .section-images #photos-preview .photo i {
+.recipe.content.forms .section-images #photos-preview .photo i {
     position: absolute;
     top: 0;
     left: 0;
@@ -437,7 +407,7 @@ textarea {
     transition: 200ms;
 }
 
-.forms .section-images #photos-preview .photo:hover i {
+.recipe.content.forms .section-images #photos-preview .photo:hover i {
     opacity: 1;
 }
 

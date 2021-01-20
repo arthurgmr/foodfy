@@ -1,0 +1,32 @@
+{% extends "../layout_adm.njk" %}
+
+{% block head %}    
+
+    <title>Foodfy - Adm - Show</title>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <section class="user-register content forms">
+        
+        <form method="POST" action="/admin/users/register"> 
+            <div class="menu">
+                <div class="title">
+                    <p>Create User</p>
+                </div>
+                <div class="options">                        
+                    <button type="submit">Save Register</button>
+                    <a href="/admin/users">Cancel</a>                       
+                </div>
+            </div>
+
+            <div class="fields">
+                {% include 'admin/users/fields.njk' %}
+            </div>
+
+            </form>
+    </section>
+    
+{% endblock %}
