@@ -2,6 +2,7 @@ const express = require('express')
 const routes = express.Router()
 
 const UserController = require('../app/controllers/UserController')
+const UserValidator = require('../app/validators/user')
 
 //login and logout
 
@@ -9,7 +10,7 @@ const UserController = require('../app/controllers/UserController')
 
 //user register
 routes.get('/register', UserController.registerForm)
-//routes.get('/register', UserValidator, UserController.post)
+routes.post('/register', UserValidator.post, UserController.post)
 
 //routes.get('/', onlyUsers, UserValidator.show, UserController.show)
 //routes.put('/', UserValidator.update, UserController.update)

@@ -12,19 +12,22 @@
 .user-register.content.forms .fields {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 30px;
+    grid-gap: 40px;
 }
 
 .user-register.content.forms .fields .section {
     margin: 0;
 }
 
-.user-register.content.forms .fields .section .checkbox {
-display: flex;
+.user-register.content.forms .section .checkbox {
+margin-top: 35px;
 align-items: center;
+
 }
 
-.user-register.content.forms .fields .section .checkbox input {
-display: none
+.user-register.content.forms .section .checkbox input {
+width: 15px;
+height: 15px;
+margin-right: 4px;
 }
 
