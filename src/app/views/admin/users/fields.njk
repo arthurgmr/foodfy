@@ -23,12 +23,13 @@
 <div class="section">               
         <div class="checkbox">
             <input
-                id="checkbox1" 
                 type="checkbox"
                 name="is_admin"
-                value="{{user.is_admin}}"                
-            >
-            <label for="checkbox1">Administrator</label>
+                value="true"
+                {%if user.is_admin == true %}
+                    checked
+                {%endif%}                     
+            > Administrator
         </div>
 </div>
 
