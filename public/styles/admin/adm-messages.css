@@ -1,6 +1,6 @@
 @keyframes rightmessage {
     to {
-        right: -50px;
+        top: -50px;
         opacity: 0;
     }
 }
@@ -24,4 +24,8 @@
 
 .messages.error {
     background: #DC4747;
+}
+
+.messages.success {
+    background: #01B12A;
 }
