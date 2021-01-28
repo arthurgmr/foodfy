@@ -6,7 +6,7 @@ const PublicController = require('../app/controllers/PublicController')
 const recipes = require('./recipes')
 const chefs = require('./chefs')
 const users = require('./users')
-//const profile = require('./profile)
+const profile = require('./profile')
 
 routes.get("/", PublicController.index)
 routes.get("/about", PublicController.about)
@@ -20,11 +20,11 @@ routes.use("/admin/recipes", recipes)
 routes.use("/admin/chefs", chefs)
 
 routes.use("/admin/users", users)
-//routes.user("/admin/profile", profile)
+routes.use("/admin/profile", profile)
 
 //alias
 routes.get('/accounts', function (req, res) {
-    return res.redirect("users/login")
+    return res.redirect("admin/users/login")
 })
 
 module.exports = routes

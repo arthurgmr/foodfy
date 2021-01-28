@@ -1,0 +1,55 @@
+{% extends "layouts/auth.njk" %}
+
+{% block head %}
+
+    <title>Foodfy - Adm</title>
+    
+{% endblock %}
+
+{% block content %}
+
+<section class="login-container">
+    <form method="POST" action="/admin/users/login">
+    
+        <div class="header">
+            <h3>Begin Session</h3>
+        </div>
+
+        <div class="section">
+
+            <div class="fields error">
+                <div>Email</div>                
+                    <div>
+                        <input 
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            value="{{user.email}}"                
+                        >
+                    </div>
+            </div>
+
+            <div class="fields error">
+                <div>Passaword</div>
+                    <div class="input">
+                        <input 
+                            type="password" 
+                            name="password"
+                            placeholder="Enter your password"
+                        >           
+                    </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a class="lost-password" href="/admin/users/forgot-password">Lost Password?</a>
+
+            <button class="button" type="submit">Access</button>
+
+        </div> 
+    </form>
+</section>
+
+
+{% endblock %}       
+        

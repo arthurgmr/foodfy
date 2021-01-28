@@ -1,12 +1,10 @@
 const express = require('express')
 const routes = express.Router()
 
-//login and logout
-
-//forgot and reset password
+const ProfileController = require('../app/controllers/ProfileController')
 
 //user register
-//routes.get('/', ProfileController.index)
+// routes.get('/', ProfileController.index) //show user
 //routes.put('/', ProfileController.put)
 
 

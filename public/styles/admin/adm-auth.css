@@ -1,29 +1,20 @@
 header {
     padding: 25px 0px;
-    background: black;
+    background: white;
     width: 100%;
 }
 header div {
     max-width: 940px;
+    display: flex;
+    justify-content: center;
 }
 header div #logo{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 28px;
     letter-spacing: 1.65px;
     text-decoration: none;
-    color: white;
-    margin: 0px 50px 0px 0px;
-}
-
-header div #menu {
-    font-size: 16px;
-    text-decoration: none;
-    color: white;
-    margin: 0px 30px 0px 0px;
-}
-
-header div #menu.active {
-    font-weight: bold;
+    color: black;
+    margin: 0;
 }
 
 body {
@@ -37,52 +28,56 @@ body {
 }
 
 /* === BUTTONS FORMAT === */
-button,
-.options button,
-.options a {
+.footer button {
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
     background-color: #6558C3;
     color: #FFFFFF;
-    padding: 9px 20px;
+    width: 134px;
+    height: 37px;
     border-radius: 4px;
     cursor: pointer;
+    margin: 0;
+}
+
+.footer .lost-password {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #969696;
+    margin: 0;
 }
 
 
 /* === FORMS FORMAT === */
 
 /* width forms */
-.content.forms form {
-    width: 940px;
+.login-container form {
+    margin-top: 100px;
+    width: 500px;
+    height: 275px;
     text-align: left;    
 }
 
-/* margin config a */
-.content.forms .menu .options a {
-    margin-left: 8px;
+.login-container h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #111111;
+    text-align: center;
 }
 
-/* button delete */
-.content.forms .menu .options .button-delete {
-    background-color: #DC4747;
-    position: absolute;
-    margin-top: 55px;
-    margin-left: 691px;
-
-}
 
 /* description of input */
-.content.forms .section div:nth-child(1) { 
+.login-container .section .fields div:nth-child(1) { 
     font-weight: bold;
     font-size: 16px;
     color: #111111;
-    margin-top: 30px;
+    margin-top: 35px;
 }
 
 /* input */
-.content.forms .section div:nth-child(2) {
+.login-container .section .fields div:nth-child(2) {
     background: #FFFFFF;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
@@ -93,10 +88,17 @@ button,
 }
 
 /* input */
-.content.forms input {
+.login-container .section .fields input {
     width: 100%;
     outline: none;
     font-size: 16px;
     color: #111111;
     line-height: 24px;
+}
+
+.login-container .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 44px;
 }

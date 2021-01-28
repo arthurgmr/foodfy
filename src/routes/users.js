@@ -2,9 +2,15 @@ const express = require('express')
 const routes = express.Router()
 
 const UserController = require('../app/controllers/UserController')
+const SessionController = require('../app/controllers/SessionController')
+
 const UserValidator = require('../app/validators/user')
+const SessionValidator = require('../app/validators/session')
+const { isLoggedRedirectToUser } = require('../app/middlewares/session')
 
 //login and logout
+routes.get('/login', isLoggedRedirectToUser, SessionController.loginForm)
+routes.post('/login', SessionValidator.login, SessionController.login)
 
 //forgot and reset password
 
