@@ -1,3 +1,10 @@
+function onlyUsers(req, res, next) {
+    if(!req.session.userId)
+        return res.redirect('/users/login')
+
+    next()
+}
+
 function isLoggedRedirectToUser(req, res, next) {
     if (req.session.userId)
         return res.redirect('/admin/users')
@@ -6,6 +13,7 @@ function isLoggedRedirectToUser(req, res, next) {
 }
 
 module.exports = {
+    onlyUsers,
     isLoggedRedirectToUser
 }
 
