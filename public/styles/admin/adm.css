@@ -110,7 +110,7 @@ header div.my-account a i {
     margin: 0;
 } */
 
-header ul li #menu.active {
+.menu-header #item.active {
     font-weight: bold;
 }
 

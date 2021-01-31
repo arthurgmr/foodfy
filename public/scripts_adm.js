@@ -1,7 +1,7 @@
 
 
 // BOLD EFFECT IN ITEMS OF MENU
-const menuItens = document.querySelectorAll("header div #menu")
+const menuItens = document.querySelectorAll("header div #item")
 if(menuItens) {
     const currentPage = location.pathname
     for (item of menuItens) {

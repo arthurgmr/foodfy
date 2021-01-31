@@ -40,12 +40,31 @@ async function login(req, res, next) {
         error: "Incorret password!"
     })
 
-    // all check ok, post user in req. user;
+    // all check ok, post user in req.user;
     req.user = user
 
     next()
 }
 
+async function forgot(req, res, next) {
+    const { email } = req.body
+
+    //check fill all fields
+    const fillAllFields = checkAllFields(req.body)
+    if(fillAllFields) {
+        return res.render("admin/session/forgot-password", fillAllFields)
+    }
+
+    //check register user
+
+    //all check ok, post user in req.user;
+    req.user = user
+
+    next()
+
+}
+
 module.exports = {
-    login
+    login,
+    forgot
 }

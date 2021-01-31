@@ -102,3 +102,7 @@ body {
     align-items: baseline;
     margin-top: 44px;
 }
+
+.login-container .footer.recovery {
+    justify-content: flex-end;
+}
