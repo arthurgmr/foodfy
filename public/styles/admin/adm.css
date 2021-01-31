@@ -3,26 +3,114 @@ header {
     background: black;
     width: 100%;
 }
-header div {
-    max-width: 940px;
+header div.menu-header {
+    width: 940px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
 }
-header div #logo{
+header ul.menu-options{
+    display: flex;
+    align-items: baseline;
+    margin-left: 0;
+}
+header div.my-account {
+    display: flex;
+    align-items: center;
+    margin-right: 0;
+    position: relative;
+}
+
+header ul li #logo{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 28px;
     letter-spacing: 1.65px;
     text-decoration: none;
     color: white;
-    margin: 0px 50px 0px 0px;
-}
-
-header div #menu {
-    font-size: 16px;
-    text-decoration: none;
-    color: white;
     margin: 0px 30px 0px 0px;
 }
 
-header div #menu.active {
+header ul li #item {
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    margin-right: 30px;
+}
+
+header div.my-account a {
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+
+}
+
+header div.my-account a i {
+    margin-right: 5px;
+}
+
+.my-account .submenu {
+    position: absolute;
+    top: 10px;
+
+    display: block;
+    background-color: white;
+
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px -2px rgb(0,0,0,.3);
+
+    transition: 200ms;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.my-account .submenu li a,
+.my-account .submenu li button {
+    color: #777;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    font-size: 14px;
+
+    border-radius: 4px;
+    border-top: 1px solid #eee;
+
+    display: inline-block;
+    width: 100%;
+
+    background: none;
+    margin: 0;
+    font: 400 14px 'Roboto';
+}
+
+.my-account .submenu li:first-child a {
+    border: none;
+}
+
+.my-account .submenu li a:hover,
+.my-account .submenu li button:hover {
+    color: #111;
+    font-weight: bold;
+}
+
+.my-account:hover .submenu {
+    top: 0;
+    opacity: 1;
+    visibility: initial;
+}
+
+
+
+/* header div button.button-logout {
+    padding: 0;
+    background: none;
+    font: 400 16px 'Roboto';
+    margin: 0;
+} */
+
+header ul li #menu.active {
     font-weight: bold;
 }
 

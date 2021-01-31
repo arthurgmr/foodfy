@@ -1,11 +1,34 @@
 <header>
-    <div>
-        <a id="logo" href="/admin/recipes">Foodfy</a>
-        <a id="menu" href="/admin/recipes">RECIPES</a>
-        <a id="menu" href="/admin/chefs">CHEFS</a>                
-        <a id="menu" href="/admin/users">USERS</a>
-        <a id="menu" href="/admin/users">MANEGEMANT</a>
-        <a id="menu" href="/admin/users">LOGOUT</a>
-               
-    </div>
+    <div class = "menu-header">
+        <ul class="menu-options">
+            <li>
+                <a id="logo" href="/admin/recipes">Foodfy</a>
+            </li>
+            <li>
+                <a id="item" href="/admin/recipes">RECIPES</a>
+            </li>
+            <li>
+                <a id="item" href="/admin/chefs">CHEFS</a>                
+            </li>
+            <li>
+                <a id="item" href="/admin/users">USERS</a>
+            </li>   
+        </ul>
+        <div class="my-account">
+            <a id="item" href="/admin/users">
+                <i class="material-icons">account_circle</i>
+                Account
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="">My account</a>
+                </li>
+                <li>
+                    <form action="/admin/users/logout" method="post">
+                        <button class="button-logout">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>    
 </header>
