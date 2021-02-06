@@ -19,5 +19,8 @@ module.exports = {
     },
     forgotForm (req, res) {
         return res.render("admin/session/forgot-password")
+    },
+    forgot (req, res) {
+        return
     }
 }

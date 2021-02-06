@@ -56,6 +56,12 @@ async function forgot(req, res, next) {
     }
 
     //check register user
+    const user = await User.findOne({ where: {email} })
+
+    if(!user) return res.render("admin/session/forgot-password", {
+        user: req.body,
+        error: "User has no registration!"
+    })
 
     //all check ok, post user in req.user;
     req.user = user

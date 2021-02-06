@@ -7,7 +7,7 @@ const SessionValidator = require('../app/validators/session')
 const { onlyUsers, isLoggedRedirectToUser } = require('../app/middlewares/session')
 const admin = require('./index-adm')
 
-//public route
+//public routes
 routes.get("/", PublicController.index)
 routes.get("/about", PublicController.about)
 routes.get("/search-recipe", PublicController.searchRecipe)
@@ -22,6 +22,7 @@ routes.post('/session/login', SessionValidator.login, SessionController.login)
 
 //forgot and reset password
 routes.get('/session/forgot-password', SessionController.forgotForm)
+routes.post('/session/forgot-password', SessionValidator.forgot, SessionController.forgot)
 
 //adm route
 routes.use("/admin", onlyUsers, admin)
