@@ -49,13 +49,13 @@ async function login(req, res, next) {
 async function forgot(req, res, next) {
     const { email } = req.body
 
-    //check fill all fields
+    //check fill all fields;
     const fillAllFields = checkAllFields(req.body)
     if(fillAllFields) {
         return res.render("admin/session/forgot-password", fillAllFields)
     }
 
-    //check register user
+    //check register user;
     const user = await User.findOne({ where: {email} })
 
     if(!user) return res.render("admin/session/forgot-password", {
@@ -70,7 +70,64 @@ async function forgot(req, res, next) {
 
 }
 
+async function reset(req, res, next) {
+    const {email, password, passwordRepeat, token} = req. body
+
+    try {
+        //check fill all fields;
+        const fillAllFields = checkAllFields(req.body)
+        if(fillAllFields) {
+            return res.render("session/reset-password", fillAllFields)
+        }
+
+        //check register user;
+        const user = await User.findOne({ where: {email} })
+
+        if(!user) return res.render("session/reset-password", {
+            user: req.body,
+            error: "User has no registration!"
+        })
+
+        //check match password;
+        if(password =! passwordRepeat)
+        return res.render("session/reset-password", {
+            user: req.body,
+            token,
+            error: "Password mismatch!"
+        })
+
+        //check match token;
+        if(token =! user.reset_token)
+        return res.render("session/reset-password", {
+            user: req.body,
+            token,
+            error: "Token mismatch!"
+        })
+
+        //check if token has expired;
+        let now = new Date()
+        now = now.setTime(now.getHours())
+
+        if(now > user.reset_token_expires)
+        return res.render("session/reset-password", {
+            user: req.body,
+            token,
+            error: "Token expired!"
+        })
+
+        //all check ok, post user in req.user;
+        req.user = user
+
+        next()
+
+    }catch(err) {
+        console.log(err)
+        return res.render ("session/reset-password")
+    }
+}
+
 module.exports = {
     login,
-    forgot
+    forgot,
+    reset
 }

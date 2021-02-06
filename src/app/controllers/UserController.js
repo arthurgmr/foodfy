@@ -1,7 +1,9 @@
 const User = require("../models/User")
 
+const { getFirstName } = require("../../lib/utils")
 const crypto = require(`crypto`)
 const mailer = require('../../lib/mailer')
+
 
 
 module.exports = {
@@ -29,7 +31,7 @@ module.exports = {
             const userId = await User.create(data)
 
             //send email with password
-            data.name = data.name.replace(/(')/g, "$1'").split(' ').slice(0, -2).join(' ');
+            data.name = getFirstName(data.name)
 
             await mailer.sendMail({
                 to: email,

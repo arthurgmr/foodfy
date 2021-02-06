@@ -23,6 +23,8 @@ routes.post('/session/login', SessionValidator.login, SessionController.login)
 //forgot and reset password
 routes.get('/session/forgot-password', SessionController.forgotForm)
 routes.post('/session/forgot-password', SessionValidator.forgot, SessionController.forgot)
+routes.get('/session/password-reset', SessionController.resetForm)
+
 
 //adm route
 routes.use("/admin", onlyUsers, admin)
