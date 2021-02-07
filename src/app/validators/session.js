@@ -71,7 +71,8 @@ async function forgot(req, res, next) {
 }
 
 async function reset(req, res, next) {
-    const {email, password, passwordRepeat, token} = req. body
+
+    const {email, password, passwordRepeat, token} = req.body
 
     try {
         //check register user;
@@ -81,19 +82,17 @@ async function reset(req, res, next) {
             user: req.body,
             token,
             error: "User has no registration!"
-        });
+        })
 
-        //check match password;
-        if(password)
-        return res.render("admin/session/password-reset", {
+        //check match password; PAREI AQUI
+        if(password != passwordRepeat) return res.render("admin/session/password-reset", {
             user: req.body,
             token,
             error: "Password mismatch!"
         })
 
         //check match token;
-        if(token =! user.reset_token)
-        return res.render("admin/session/password-reset", {
+        if(token != user.reset_token) return res.render("admin/session/password-reset", {
             user: req.body,
             token,
             error: "Token mismatch!"
@@ -101,10 +100,9 @@ async function reset(req, res, next) {
 
         //check if token has expired;
         let now = new Date()
-        now = now.setTime(now.getHours())
+        now = now.setHours(now.getHours())
 
-        if(now > user.reset_token_expires)
-        return res.render("admin/session/password-reset", {
+        if(now > user.reset_token_expires) return res.render("admin/session/password-reset", {
             user: req.body,
             token,
             error: "Token expired!"
@@ -117,7 +115,11 @@ async function reset(req, res, next) {
 
     }catch(err) {
         console.log(err)
-        return res.render ("admin/session/password-reset")
+        return res.render ("admin/session/password-reset", {
+            user: req.body,
+            token,
+            error: "Some error happened!"
+        })
     }
 }
 
