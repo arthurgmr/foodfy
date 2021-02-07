@@ -18,7 +18,7 @@ module.exports = {
         req.session.destroy()
         return res.redirect("/")
     },
-    forgotForm (req, res) {
+    forgotForm(req, res) {
         return res.render("admin/session/forgot-password")
     },
     async forgot (req, res) {
@@ -71,7 +71,10 @@ module.exports = {
             })
         }
     },
-    resetForm (req, res) {
-        return res.render("admin/session/reset-password")
+    resetForm(req, res) {
+        return res.render("admin/session/password-reset", { token: req.query.token })
+    },
+    async reset(req, res) {
+        return res.send(`I'm here!`)
     }
 }

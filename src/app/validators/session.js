@@ -74,23 +74,18 @@ async function reset(req, res, next) {
     const {email, password, passwordRepeat, token} = req. body
 
     try {
-        //check fill all fields;
-        const fillAllFields = checkAllFields(req.body)
-        if(fillAllFields) {
-            return res.render("session/reset-password", fillAllFields)
-        }
-
         //check register user;
         const user = await User.findOne({ where: {email} })
 
-        if(!user) return res.render("session/reset-password", {
+        if(!user) return res.render("admin/session/password-reset", {
             user: req.body,
+            token,
             error: "User has no registration!"
-        })
+        });
 
         //check match password;
-        if(password =! passwordRepeat)
-        return res.render("session/reset-password", {
+        if(password)
+        return res.render("admin/session/password-reset", {
             user: req.body,
             token,
             error: "Password mismatch!"
@@ -98,7 +93,7 @@ async function reset(req, res, next) {
 
         //check match token;
         if(token =! user.reset_token)
-        return res.render("session/reset-password", {
+        return res.render("admin/session/password-reset", {
             user: req.body,
             token,
             error: "Token mismatch!"
@@ -109,7 +104,7 @@ async function reset(req, res, next) {
         now = now.setTime(now.getHours())
 
         if(now > user.reset_token_expires)
-        return res.render("session/reset-password", {
+        return res.render("admin/session/password-reset", {
             user: req.body,
             token,
             error: "Token expired!"
@@ -122,7 +117,7 @@ async function reset(req, res, next) {
 
     }catch(err) {
         console.log(err)
-        return res.render ("session/reset-password")
+        return res.render ("admin/session/password-reset")
     }
 }
 

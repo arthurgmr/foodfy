@@ -24,6 +24,7 @@ routes.post('/session/login', SessionValidator.login, SessionController.login)
 routes.get('/session/forgot-password', SessionController.forgotForm)
 routes.post('/session/forgot-password', SessionValidator.forgot, SessionController.forgot)
 routes.get('/session/password-reset', SessionController.resetForm)
+routes.post('/session/password-reset', SessionValidator.reset, SessionController.reset)
 
 
 //adm route

@@ -20,7 +20,6 @@ module.exports = {
             console.log(err)
         }
     },
-
     create(req, res){
         return res.render("admin/chefs/create")
     },
