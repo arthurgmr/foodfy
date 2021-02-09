@@ -2,6 +2,12 @@ const db = require('../../config/db')
 const { hash } = require('bcryptjs')
 
 module.exports = {
+    all() {
+        return db.query(`
+            SELECT * FROM users
+            ORDER BY name DESC
+        `)
+    },
     async findOne(filters) {
         let query = `SELECT * FROM users`
 

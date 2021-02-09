@@ -3,11 +3,12 @@ const User = require("../models/User")
 const crypto = require('crypto')
 const mailer = require('../../lib/mailer')
 const { getFirstName } = require("../../lib/utils")
+const { hash } = require("bcryptjs")
 
 
 module.exports = {
     loginForm(req, res) {
-        return res.render("admin/session/index")
+        return res.render("admin/session/login")
     },
     login(req, res) {
         req.session.userId = req.user.id
@@ -60,7 +61,7 @@ module.exports = {
             })
 
             //notify user
-            return res.render('admin/session/forgot-password', {
+            return res.render('admin/session/login', {
                 success: "Check your email, and follow the instructions!"
             })
 
@@ -75,6 +76,33 @@ module.exports = {
         return res.render("admin/session/password-reset", { token: req.query.token })
     },
     async reset(req, res) {
-        return res.send(`I'm here!`)
+        const user = req.user
+        const { password, token } = req.body
+
+        try {
+
+            //create hash password
+            const newPassword = await hash(password, 8)
+
+            //update user
+            await User.update(user.id, {
+                password: newPassword,
+                reset_token: "",
+                reset_token_expires: ""
+            })
+
+            //redirect to login and notify user about new password
+            return res.render("admin/session/login", {
+                user: req.body,
+                success: "Password updated with success!"
+            })
+
+        }catch(err) {
+            return res.render("admin/session/password-reset", {
+                user: req.body,
+                token,
+                error: "Some error happened!"
+            })
+        }
     }
 }

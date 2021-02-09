@@ -7,6 +7,19 @@ const mailer = require('../../lib/mailer')
 
 
 module.exports = {
+    async index(req, res) {
+        try {
+            let results = await User.all()
+            const users = results.rows
+
+            return res.render("admin/users/index", { users })
+
+        }catch(err) {
+            return res.render("admin/users/index", {
+                error: "Some error happaned!"
+            })
+        }
+    },
     registerForm(req, res) {
         return res.render("admin/users/register")
     },
@@ -64,5 +77,24 @@ module.exports = {
                 error: 'Some error happened!'
             })
         }
+    },
+    async show(req, res) {
+        try {
+            let results = await User.findOne(req.params.id)
+            const users = results.rows[0]
+
+            if(!user) return res.render("admin/users/index", {
+                error: "User not found!"
+            })
+
+            return res.render("admin/users/show", { users })
+
+        }catch(err) {
+            console.log(err)
+            return res.render("admin/users/index", {
+                error: "Some error happaned!"
+            })
+        }
     }
+
 }

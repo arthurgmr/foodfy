@@ -14,7 +14,7 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
             }))
     
-            return res.render("admin/chefs/index", {chefs})
+            return res.render("admin/chefs/index", { chefs })
 
         }catch(err) {
             console.log(err)

@@ -1,0 +1,43 @@
+{% extends "layouts/admin.njk" %}
+
+{% block head %}
+
+    <title>Foodfy Adm</title>
+    
+{% endblock %}
+
+{% block content %}
+
+            
+    <section class="content forms">
+        
+        <form id="form-delete" method="POST" action="/admin/users/{{user.id}}/?_method=DELETE">
+            <div class="options"> 
+                <input type="hidden" name="id" value="{{user.id}}">
+                <button class="button-delete" type="submit">Delete</button>
+            </div>
+        </form>
+
+        <form method="POST" action="/admin/users/{{user.id}}/?_method=PUT" enctype="multipart/form-data"> 
+            <div class="menu">
+                <div class="title">
+                    <p>Editing User</p>
+                </div>
+                <div class="options">                        
+                    <button type="submit">Save Changes</button>                        
+                </div>
+            </div>
+
+            {% include 'admin/user/fields.njk' %}
+
+            <input type="hidden" name="id" value="{{user.id}}">
+            <input type="hidden" name="idFile" value="{{file[0].id}}">
+
+            </form>
+    </section>
+
+
+    <script src="/scripts_adm.js"></script>
+
+        
+{% endblock %}

@@ -1,4 +1,4 @@
-/* === INDEX CHEFS === */
+/* === INDEX CHEFS AND USERS === */
 
 .menu_index {
     display: grid;
@@ -64,6 +64,7 @@
     color: #6558C3;
     font-weight: bold;
     cursor: pointer;
+    margin: 0;
 }
 
 /* === SHOW CHEF === */

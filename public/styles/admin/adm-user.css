@@ -1,5 +1,29 @@
 /* === INDEX USERS === */
 
+.cards.users {
+    width: 940px;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
+
+}
+
+.card__inf .card__inf-options {
+    display: flex;    
+}
+
+.card__inf form {
+    margin-left: 16px;
+}
+
+.card__inf .button-delete-user {
+    padding: 0;
+    background: white;
+    color: #F55A5A;
+}
+
 /* === SHOW USERS === */
 
 /* === FORMS USER === */

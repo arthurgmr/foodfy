@@ -2,10 +2,10 @@ const express = require('express')
 const routes = express.Router()
 
 const PublicController = require('../app/controllers/PublicController')
-const SessionController = require('../app/controllers/SessionController')
-const SessionValidator = require('../app/validators/session')
-const { onlyUsers, isLoggedRedirectToUser } = require('../app/middlewares/session')
 const admin = require('./index-adm')
+const session = require('./session')
+
+const { onlyUsers } = require('../app/middlewares/session')
 
 //public routes
 routes.get("/", PublicController.index)
@@ -16,18 +16,10 @@ routes.get("/recipes/:id", PublicController.recipesShow)
 routes.get("/chefs", PublicController.chefs)
 routes.get("/chefs/:id", PublicController.chefsShow)
 
-//login
-routes.get('/session/login', isLoggedRedirectToUser, SessionController.loginForm)
-routes.post('/session/login', SessionValidator.login, SessionController.login)
+//login, forgot and reset password routes
+routes.use("/session", session)
 
-//forgot and reset password
-routes.get('/session/forgot-password', SessionController.forgotForm)
-routes.post('/session/forgot-password', SessionValidator.forgot, SessionController.forgot)
-routes.get('/session/password-reset', SessionController.resetForm)
-routes.post('/session/password-reset', SessionValidator.reset, SessionController.reset)
-
-
-//adm route
+//adm routes
 routes.use("/admin", onlyUsers, admin)
 
 //alias

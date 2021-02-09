@@ -1,0 +1,31 @@
+{% extends "layouts/admin.njk" %}
+
+{% block head %}    
+
+    <title>Foodfy Adm</title>
+    
+{% endblock %}
+
+
+{% block content %}
+
+    <section class="menu">
+        <div class="title">
+            <p>user: {{user.name}}</p>
+        </div>
+        <div class="options">
+            <a href="/admin/users/{{user.id}}/edit">Edit user</a>
+        </div>
+    </section>
+
+    <section class="content">          
+        
+    {% include 'admin/users/fields.njk' %}
+        
+    </section>    
+
+ 
+
+    <script src="/scripts_adm.js"></script>
+        
+{% endblock %}

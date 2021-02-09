@@ -21,13 +21,13 @@ async function login(req, res, next) {
     //check if has all fields
     const fillAllFields = checkAllFields(req.body)
     if(fillAllFields) {
-        return res.render("/admin/session/index", fillAllFields)
+        return res.render("/admin/session/login", fillAllFields)
     }
 
     //check register user;
     const user = await User.findOne({ where: {email} })
 
-    if(!user) return res.render("admin/session/index", {
+    if(!user) return res.render("admin/session/login", {
         user: req.body,
         error: "User has no registration!"
     })
@@ -35,7 +35,7 @@ async function login(req, res, next) {
     //check password matching;
     const passed = await compare(password, user.password)
 
-    if(!passed) return res.render("admin/session/index", {
+    if(!passed) return res.render("admin/session/login", {
         user: req.body,
         error: "Incorret password!"
     })
@@ -84,7 +84,7 @@ async function reset(req, res, next) {
             error: "User has no registration!"
         })
 
-        //check match password; PAREI AQUI
+        //check match password;
         if(password != passwordRepeat) return res.render("admin/session/password-reset", {
             user: req.body,
             token,

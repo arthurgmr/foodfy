@@ -41,7 +41,7 @@ const Mask = {
 const formDelete = document.querySelector("#form-delete")
 if(formDelete) {
     formDelete.addEventListener("submit", function(event) {
-        const confirmation = confirm("Do you want to delete the chef?")
+        const confirmation = confirm("Do you want to delete the register?")
             if(!confirmation) {
                 event.preventDefault()
             }

@@ -2,7 +2,7 @@
 
 {% block head %}
 
-    <title>Foodfy - Adm</title>
+    <title>Foodfy Adm</title>
     
 {% endblock %}
 
@@ -11,30 +11,29 @@
 <section class="menu_index">
 
     <div class="menu_title">
-        <p>Manager Chefs</p>
+        <p>Manager Users</p>
     </div>
 
     <div class="options">
-        <a href="/admin/chefs/create">Register Chef</a>                        
+        <a href="/admin/users/register">Register User</a>                        
     </div>
 
 </section>
 
-    <section class="cards">
+    <section class="cards users">
     
-        {% for chef in chefs %}
+        {% for user in users %}
         <div class="card_index">
-            <div class="card__img-container">
-                <img src="{{chef.src}}" alt="Imagem de {{chef.name}}">
-            </div>
-            <div class="card__inf chef">
-                <p>{{chef.name}}</p>
-                {% if chef.total_recipes == 1 %}
-                    <p>{{chef.total_recipes}} Recipe</p>
-                {% else %}
-                    <p>{{chef.total_recipes}} Recipes</p>
-                {% endif %}
-                <a href="/admin/chefs/{{chef.id}}" class="view_recipe">View</a>
+            <div class="card__inf">
+                <p>{{user.name}}</p>
+                <p>{{user.email}}</p>
+                <div class="card__inf-options">
+                    <a href="/admin/users/{{user.id}}" class="view_recipe">View</a>
+                    <form id="form-delete" method="post" action="/admin/users?_method=DELETE">
+                        <input type="hidden" name="id" value={{user.id}}>
+                        <button class="button-delete-user" type="submit">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
         {% endfor %}
