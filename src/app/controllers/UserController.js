@@ -80,14 +80,14 @@ module.exports = {
     },
     async show(req, res) {
         try {
-            let results = await User.findOne(req.params.id)
-            const users = results.rows[0]
+            let results = await User.find(req.params.id)
+            const user = results.rows[0]
 
             if(!user) return res.render("admin/users/index", {
                 error: "User not found!"
             })
 
-            return res.render("admin/users/show", { users })
+            return res.render("admin/users/edit", { user })
 
         }catch(err) {
             console.log(err)

@@ -11,7 +11,8 @@
 }
 
 .card__inf .card__inf-options {
-    display: flex;    
+    display: flex;
+    align-items: center;  
 }
 
 .card__inf form {
@@ -20,6 +21,9 @@
 
 .card__inf .button-delete-user {
     padding: 0;
+    width: 0;
+    height: 0;
+    font-size: 14px;
     background: white;
     color: #F55A5A;
 }
@@ -33,22 +37,26 @@
     background-color: #8A8A8A;
 }
 
+.content .fields,
 .user-register.content.forms .fields {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 40px;
 }
 
+.content .section,
 .user-register.content.forms .fields .section {
     margin: 0;
 }
 
+.content .section .checkbox,
 .user-register.content.forms .section .checkbox {
 margin-top: 35px;
 align-items: center;
 
 }
 
+.content .section .checkbox input,
 .user-register.content.forms .section .checkbox input {
 width: 15px;
 height: 15px;

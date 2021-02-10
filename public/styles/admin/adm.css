@@ -126,16 +126,20 @@ body {
 
 /* === BUTTONS FORMAT === */
 button,
-.options button,
 .options a {
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
     background-color: #6558C3;
     color: #FFFFFF;
-    padding: 9px 20px;
+    width: 139px;
+    height: 37px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.options a {
+    background-size: 139px 37px;
 }
 
 
@@ -153,12 +157,15 @@ button,
 }
 
 /* button delete */
+.button-delete,
 .content.forms .menu .options .button-delete {
     background-color: #DC4747;
     position: absolute;
     margin-top: 55px;
-    margin-left: 691px;
-
+    margin-left: 650px;
+}
+.content.forms .options .button-delete button {
+    background-color: #DC4747
 }
 
 /* description of input */
@@ -167,6 +174,7 @@ button,
     font-size: 16px;
     color: #111111;
     margin-top: 30px;
+    text-align: left;
 }
 
 /* input */

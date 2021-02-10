@@ -15,7 +15,7 @@
     </div>
 
     <div class="options">
-        <a href="/admin/users/register">Register User</a>                        
+        <a href="/admin/users/register">New</a>                        
     </div>
 
 </section>
@@ -28,7 +28,7 @@
                 <p>{{user.name}}</p>
                 <p>{{user.email}}</p>
                 <div class="card__inf-options">
-                    <a href="/admin/users/{{user.id}}" class="view_recipe">View</a>
+                    <a href="/admin/users/{{user.id}}" class="view_recipe">Edit</a>
                     <form id="form-delete" method="post" action="/admin/users?_method=DELETE">
                         <input type="hidden" name="id" value={{user.id}}>
                         <button class="button-delete-user" type="submit">Delete</button>

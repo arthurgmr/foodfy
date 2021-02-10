@@ -8,6 +8,12 @@ module.exports = {
             ORDER BY name DESC
         `)
     },
+    find(id) {
+        return db.query(`
+            SELECT * FROM users
+            WHERE id = $1`, [id]
+        )
+    },
     async findOne(filters) {
         let query = `SELECT * FROM users`
 
