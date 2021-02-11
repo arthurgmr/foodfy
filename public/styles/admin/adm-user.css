@@ -12,7 +12,7 @@
 
 .card__inf .card__inf-options {
     display: flex;
-    align-items: center;  
+    align-items: last baseline;  
 }
 
 .card__inf form {

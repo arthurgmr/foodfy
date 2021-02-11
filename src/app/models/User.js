@@ -76,5 +76,8 @@ module.exports = {
             }
         })
         await db.query(query)
+    },
+    async delete(id) {
+        return
     }
 }

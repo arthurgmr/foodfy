@@ -10,13 +10,14 @@ const UserValidator = require('../app/validators/user')
 //logout
 routes.post('/logout', SessionController.logout)
 
-//user register
+//users routes of is_admin user's
 routes.get('/register', UserController.registerForm)
 routes.post('/register', UserValidator.post, UserController.post)
 
-//users
 routes.get('/', UserController.index)
-routes.get('/:id', UserController.show)
+routes.get('/:id/edit', UserController.edit)
+routes.put('/:id/edit', UserValidator.put, UserController.put)
+routes.delete('/:id/edit', UserController.delete)
 
 //routes.get('/', onlyUsers, UserValidator.show, UserController.show)
 //routes.put('/', UserValidator.update, UserController.update)
