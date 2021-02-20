@@ -20,7 +20,7 @@ const { age, date} = require("../../lib/utils.js")
             cpf,
             phone,
             email,
-            file_id,
+            file_id
         ) VALUES ($1, $2, $3, $4, $5)   
         RETURNING id
     `
@@ -32,7 +32,7 @@ const { age, date} = require("../../lib/utils.js")
             data.cpf,
             data.phone,
             data.email,
-            fileId,
+            fileId
         ]
 
     return db.query(query, values)

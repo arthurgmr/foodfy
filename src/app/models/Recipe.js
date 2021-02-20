@@ -1,5 +1,4 @@
 const db = require("../../config/db")
-const { age, date} = require("../../lib/utils.js")
 
  
  module.exports = {
@@ -18,17 +17,19 @@ const { age, date} = require("../../lib/utils.js")
         INSERT INTO recipes (
             title,
             chef_id,
+            user_id,
             featured,
             homepage,
             ingredients,
             preparation,
             information
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7)   
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)   
         RETURNING id    
     `
         const values = [
             data.title,
             data.chef_id,
+            data.user_id,
             data.featured,
             data.homepage,
             data.ingredients,
@@ -41,10 +42,11 @@ const { age, date} = require("../../lib/utils.js")
 
     find(id) {
         return db.query(`
-        SELECT recipes.*, chefs.name AS chef_name 
-        FROM recipes
-        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        WHERE recipes.id = $1`, [id])
+            SELECT recipes.*, chefs.name AS chef_name 
+            FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            WHERE recipes.id = $1`, [id]
+        )
     },
 
     findBy(filter) {
@@ -54,6 +56,13 @@ const { age, date} = require("../../lib/utils.js")
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         WHERE recipes.title ILIKE '%${filter}%'
         OR chefs.name ILIKE '%${filter}%'`)
+    },
+    findRecipeOfUser(id) {
+        return db.query(`
+            SELECT * 
+            FROM recipes 
+            WHERE user_id = $1`, [id]
+        )
     },
 
     update(data) {

@@ -1,5 +1,7 @@
 const db = require('../../config/db')
 const { hash } = require('bcryptjs')
+const Recipe = require('./Recipe')
+const fs = require('fs')
 
 module.exports = {
     all() {
@@ -78,6 +80,22 @@ module.exports = {
         await db.query(query)
     },
     async delete(id) {
-        return
+        //get all recipes of user
+        let results = await Recipe.findRecipeOfUser(id)
+        const recipes = results.rows
+
+        //get all images of recipes
+        const allFilesPromise = recipes.map(recipe =>
+            Recipe.files(recipe.id))
+        //await promise    
+        let promiseResults = await Promise.all(allFilesPromise)
+
+        //remove recipe
+        await db.query('DELETE FROM users WHERE id = $1', [id])
+
+        //remove files
+        promiseResults.map(results => {
+            results.rows.map(file => fs.unlinkSync(file.path))
+        })
     }
 }

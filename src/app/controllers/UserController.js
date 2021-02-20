@@ -156,7 +156,7 @@ module.exports = {
         try {
             await User.delete(req.body.id)
             
-            return res.render("admin/users", {
+            return res.render("admin/users/index", {
                 success: "Account Successfully Deleted"
             })
 

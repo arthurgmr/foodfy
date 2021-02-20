@@ -48,7 +48,7 @@ module.exports = {
             //save file;
             let results = await File.create(...req.files)
             const fileId = results.rows[0].id
-            
+
             //save chef;
             results = await Chef.create(req.body, fileId)
             const chefId = results.rows[0].id
@@ -127,6 +127,9 @@ module.exports = {
                 ...file,
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
             }))
+
+            console.log(chef)
+            console.log(file[0].id)
 
             return res.render("admin/chefs/edit", {chef, file})
             

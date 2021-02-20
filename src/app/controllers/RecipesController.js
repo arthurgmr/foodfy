@@ -61,8 +61,10 @@ async post(req, res){
     if(req.files.length == 0)
         return res.send('Please, send at least one image!')
     
-    try{
+    try{  
         
+      req.body.user_id = req.session.userId
+
       let results = await Recipe.create(req.body)
       const recipeId = results.rows[0].id
 
