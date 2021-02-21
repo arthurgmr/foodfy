@@ -71,6 +71,11 @@ ADD FOREIGN KEY ("user_id")
 REFERENCES "users" ("id")
 ON DELETE CASCADE;
 
+ALTER TABLE "recipes" 
+ADD FOREIGN KEY ("chef_id") 
+REFERENCES "chefs" ("id")
+ON DELETE CASCADE;
+
 --creating procedure
 CREATE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$

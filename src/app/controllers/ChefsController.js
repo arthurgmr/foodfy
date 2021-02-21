@@ -128,7 +128,6 @@ module.exports = {
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
             }))
 
-            console.log(chef)
             console.log(file[0].id)
 
             return res.render("admin/chefs/edit", {chef, file})
