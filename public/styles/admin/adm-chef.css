@@ -144,20 +144,20 @@
 /* === FORMS CHEF=== */
 
 /* input section bottom (avatar) */
-.chef.content.forms .section-bottom div:nth-child(1) { 
+.content.forms .section-bottom div:nth-child(1) { 
     font-weight: bold;
     font-size: 16px;
     color: #111111;
     margin-top: 30px;
 }
 
-.chef.content.forms .section-bottom {
+.content.forms .section-bottom {
     margin-bottom: 50px;
 }
 
 /* avatar upload */
 
-.chef.content.forms .section-bottom #avatar-upload {
+.content.forms .section-bottom #avatar-upload {
     position: relative;
     width: 139px;
     margin: 0;
@@ -165,7 +165,7 @@
     cursor: pointer;
 }
 
-.chef.content.forms .section-bottom #avatar-upload p {
+.content.forms .section-bottom #avatar-upload p {
     padding-top: 8px;
     padding-bottom: 8px;
     border-radius: 4px;
@@ -181,7 +181,7 @@
 
 }
 
-.chef.content.forms .section-bottom #avatar-input {
+.content.forms .section-bottom #avatar-input {
     position: absolute;
 
     top: 0;
@@ -198,7 +198,7 @@
 
 /* photo upload */
 
-.chef.content.forms .section-bottom #avatar-preview .photo {
+.content.forms .section-bottom #avatar-preview .photo {
     max-width: 149px;
     margin: 0;
     margin-top: 10px;
@@ -206,7 +206,7 @@
     position: relative;
 }
 
-.chef.content.forms .section-bottom #avatar-preview .photo img {
+.content.forms .section-bottom #avatar-preview .photo img {
     width: 149px;
     height: 149px;
 
@@ -215,7 +215,7 @@
     box-shadow: 0px 2px 6px -2px;
 }
 
-.chef.content.forms .section-bottom #avatar-preview .photo i {
+.content.forms .section-bottom #avatar-preview .photo i {
     position: absolute;
     top: 0;
 
@@ -235,7 +235,7 @@
     transition: 200ms;
 }
 
-.chef.content.forms .section-bottom #avatar-preview .photo:hover i {
+.content.forms .section-bottom #avatar-preview .photo:hover i {
     opacity: 1;
 }
 

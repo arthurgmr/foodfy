@@ -228,7 +228,7 @@ li {
 
 
 /* questions title */
-.recipe.content.forms .section-images {
+.content.forms .section-images {
     font-weight: bold;
     font-size: 16px;
     color: #111111;
@@ -236,8 +236,8 @@ li {
 }
 
 /* inputs ingredients and preparation */
-.recipe.content.forms .ingredient,
-.recipe.content.forms .preparation {
+.content.forms .ingredient,
+.content.forms .preparation {
     background: #FFFFFF;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
@@ -247,7 +247,7 @@ li {
     margin-top: 10px;
 }
 
-.recipe.content.forms select {
+.content.forms select {
     width: 100%;
     outline: none;
     font-size: 16px;
@@ -256,7 +256,7 @@ li {
     background-color: white;
 }
 
-.recipe.content.forms .section span {
+.content.forms .section span {
     padding: 8px 16px;
     border: 1px solid #DDDDDD;
     color: 6558C3;
@@ -269,22 +269,22 @@ li {
     font-size: 12px;
 }
 
-.recipe.content.forms .section:nth-child(5) div:nth-child(2),
-.recipe.content.forms .section:nth-child(6) div:nth-child(2) {
+.content.forms .section:nth-child(5) div:nth-child(2),
+.content.forms .section:nth-child(6) div:nth-child(2) {
     border: none;
     padding: 0;
     margin: 0;    
 }
 
-.recipe.content.forms .section:nth-child(5) input,
-.recipe.content.forms .section:nth-child(6) input {
+.content.forms .section:nth-child(5) input,
+.content.forms .section:nth-child(6) input {
     cursor: pointer;
     width: 16px;    
 }
 
 /* buttons add */
-.recipe.content.forms .add-ingredient,
-.recipe.content.forms .add-preparation  {
+.content.forms .add-ingredient,
+.content.forms .add-preparation  {
     font-weight: bold;
     font-size: 12px;
     color: #6558C3;
@@ -295,8 +295,8 @@ li {
 }
 
 /* buttons remove */
-.recipe.content.forms .remove-ingredient,
-.recipe.content.forms .remove-preparation  {
+.content.forms .remove-ingredient,
+.content.forms .remove-preparation  {
     font-weight: bold;
     font-size: 12px;
     color: #DC4747;
@@ -308,7 +308,7 @@ li {
 }
 
 /* textarea format */
-.recipe.content.forms textarea {
+.content.forms textarea {
     width: 100%;
     height: 257px;
     resize: none;
@@ -320,20 +320,20 @@ li {
     outline: none;
 }
 
-.recipe.content.forms .more-information {
+.content.forms .more-information {
     height: 257px;
     margin-bottom: 50px;
 }
 
 /* photos upload */
 
-.recipe.content.forms .section-images .photos {
+.content.forms .section-images .photos {
     display: grid;
     grid-template-columns: 149px 1fr;
     grid-gap: 8px;
 }
 
-.recipe.content.forms .section-images #photos-upload {
+.content.forms .section-images #photos-upload {
     position: relative;
     width: 149px;
     height: 149px;
@@ -349,12 +349,12 @@ li {
     border-radius: 3.5px;
 }
 
-.recipe.content.forms .section-images #photos-upload i {
+.content.forms .section-images #photos-upload i {
     color: #777777;
     font-size: 400%;
 }
 
-.recipe.content.forms .section-images #photos-input {
+.content.forms .section-images #photos-input {
     position: absolute;
     display: block;
     overflow: hidden;
@@ -364,7 +364,7 @@ li {
     cursor: pointer;
 }
 
-.recipe.content.forms .section-images #photos-preview {
+.content.forms .section-images #photos-preview {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 8px;
@@ -372,7 +372,7 @@ li {
     margin-top: 10px;
 }
 
-.recipe.content.forms .section-images #photos-preview img{
+.content.forms .section-images #photos-preview img{
     width: 149px;
     height: 149px;
 
@@ -381,11 +381,11 @@ li {
     box-shadow: 0px 2px 6px -2px;
 }
 
-.recipe.content.forms .section-images #photos-preview .photo {
+.content.forms .section-images #photos-preview .photo {
     position: relative;
 }
 
-.recipe.content.forms .section-images #photos-preview .photo i {
+.content.forms .section-images #photos-preview .photo i {
     position: absolute;
     top: 0;
     left: 0;
@@ -407,7 +407,7 @@ li {
     transition: 200ms;
 }
 
-.recipe.content.forms .section-images #photos-preview .photo:hover i {
+.content.forms .section-images #photos-preview .photo:hover i {
     opacity: 1;
 }
 
