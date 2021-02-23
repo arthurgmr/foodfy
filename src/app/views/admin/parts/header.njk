@@ -10,9 +10,12 @@
             <li>
                 <a id="item" href="/admin/chefs">CHEFS</a>                
             </li>
-            <li>
-                <a id="item" href="/admin/users">USERS</a>
-            </li>   
+            {% if isAdmin %}
+                <li>
+                    <a id="item" href="/admin/users">USERS</a>
+                </li>  
+            {% endif %}              
+   
         </ul>
         <div class="my-account">
             <a id="item" href="/admin/users">

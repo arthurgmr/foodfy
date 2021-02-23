@@ -13,9 +13,12 @@ module.exports = {
             let results = await User.all()
             const users = results.rows
 
-            return res.render("admin/users/index", { users })
+            isAdmin = req.session.isAdmin
+
+            return res.render("admin/users/index", { users, isAdmin })
 
         }catch(err) {
+            console.log(err)
             return res.render("admin/users/index", {
                 error: "Some error happaned!"
             })

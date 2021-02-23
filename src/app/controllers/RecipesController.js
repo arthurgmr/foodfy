@@ -28,7 +28,9 @@ async index(req, res){
 
         const allRecipe = await Promise.all(filesPromise)
 
-        return res.render("admin/recipes/index", {recipes: allRecipe})
+        isAdmin = req.session.isAdmin
+
+        return res.render("admin/recipes/index", {recipes: allRecipe, isAdmin})
     } catch(err) {
         console.log(err)
     }
@@ -39,29 +41,15 @@ async create(req, res){
     let results = await Recipe.chefsSelectOptions()
     const chefsOption = results.rows
 
-    return res.render("admin/recipes/create", {chefsOption})     
+    isAdmin = req.session.isAdmin
+
+    return res.render("admin/recipes/create", {chefsOption, isAdmin})     
 
 },
 
 async post(req, res){
-    const keys = Object.keys(req.body)
 
-    for (key of keys) {
-        if (req.body[key] == "") {
-            let results = await Recipe.chefsSelectOptions()
-            const chefsOption = results.rows
-            return res.render('admin/recipes/create', {
-                chef: req.body,
-                chefsOption,
-                error: 'Please, fill all fields!'
-            })
-        }
-    }
-
-    if(req.files.length == 0)
-        return res.send('Please, send at least one image!')
-    
-    try{  
+   try{  
         
       req.body.user_id = req.session.userId
 
@@ -100,7 +88,10 @@ async show(req, res){
             src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
         }))
 
-    return res.render("admin/recipes/show", {recipe, files})
+        isAdmin = req.session.isAdmin
+        userSession = req.session.userId
+
+    return res.render("admin/recipes/show", {recipe, files, isAdmin, userSession})
 
     }catch(err) {
         console.log(err)
@@ -124,7 +115,9 @@ async edit(req, res){
             src: `${req.protocol}://${req.headers.host}${file.path.replace("public","")}`
         }))
 
-        return res.render("admin/recipes/edit", {recipe, chefsOption, files})
+        isAdmin = req.session.isAdmin
+
+        return res.render("admin/recipes/edit", {recipe, chefsOption, files, isAdmin})
 
     }catch(err) {
         console.log(err)
@@ -132,20 +125,6 @@ async edit(req, res){
 },
 
 async put(req, res){
-    const keys = Object.keys(req.body)
-
-    for (key of keys) {
-        if (req.body[key] == "" && key != "removed_files") {
-            let results = await Recipe.chefsSelectOptions()
-            const chefsOption = results.rows
-            return res.render('admin/recipes/create', {
-                chef: req.body,
-                chefsOption,
-                error: 'Please, fill all fields!'
-            })
-        }
-    }
-
 
     try{
         //save new files in table files and table recipe_files

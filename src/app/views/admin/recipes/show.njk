@@ -13,9 +13,12 @@
         <div class="title">
             <p>Recipe: {{recipe.title}}</p>
         </div>
-        <div class="options">
-            <a href="/admin/recipes/{{recipe.id}}/edit">Edit Recipe</a>
-        </div>
+        {% if recipe.user_id == userSession or isAdmin %}
+            <div class="options">
+                <a href="/admin/recipes/{{recipe.id}}/edit">Edit Recipe</a>
+            </div>
+        {% endif %}
+
     </section>
 
     <section class="content">          

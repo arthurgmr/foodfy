@@ -13,15 +13,25 @@ module.exports = {
                 ...chef,
                 src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
             }))
+
+            isAdmin = req.session.isAdmin
     
-            return res.render("admin/chefs/index", { chefs })
+            return res.render("admin/chefs/index", { chefs, isAdmin })
 
         }catch(err) {
             console.log(err)
         }
     },
     create(req, res){
-        return res.render("admin/chefs/create")
+        try {
+            isAdmin = req.session.isAdmin
+
+            return res.render('admin/recipes/create', { isAdmin })
+
+        }catch(err) {
+            console.log(err)
+        }
+
     },
     async post(req, res){
         const keys = Object.keys(req.body)
@@ -104,8 +114,10 @@ module.exports = {
             })
             
             const recipesWithImages = await Promise.all(filesRecipesPromise)
+
+            isAdmin = req.session.isAdmin
                     
-            return res.render("admin/chefs/show", {chef, recipes: recipesWithImages, file})
+            return res.render("admin/chefs/show", {chef, recipes: recipesWithImages, file, isAdmin})
 
         }catch(err) {
             console.log(err)
@@ -127,8 +139,10 @@ module.exports = {
                 ...file,
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
             }))
+            
+            isAdmin = req.session.isAdmin
 
-            return res.render("admin/chefs/edit", {chef, file})
+            return res.render("admin/chefs/edit", {chef, file, isAdmin})
             
         }catch(err) {
             console.log(err)

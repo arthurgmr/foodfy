@@ -14,9 +14,11 @@
         <div class="title">
             <p>Chef: {{chef.name}}</p>
         </div>
-        <div class="options">
-            <a href="/admin/chefs/{{chef.id}}/edit">Edit Chef</a>
-        </div>
+        {% if isAdmin %}
+            <div class="options">
+                <a href="/admin/chefs/{{chef.id}}/edit">Edit Chef</a>
+            </div>
+        {% endif %}
     </section>
 
     <section class="content">          

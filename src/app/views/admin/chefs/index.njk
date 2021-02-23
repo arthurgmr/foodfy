@@ -14,9 +14,12 @@
         <p>Manager Chefs</p>
     </div>
 
-    <div class="options">
-        <a href="/admin/chefs/create">New</a>                        
-    </div>
+    {% if isAdmin %}
+        <div class="options">
+            <a href="/admin/chefs/create">New</a>                        
+        </div>
+    {% endif %}
+
 
 </section>
 
