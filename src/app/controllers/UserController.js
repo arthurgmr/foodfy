@@ -25,7 +25,10 @@ module.exports = {
         }
     },
     registerForm(req, res) {
-        return res.render("admin/users/register")
+        
+        isAdmin = req.session.isAdmin
+
+        return res.render("admin/users/register", { isAdmin })
     },
     async post(req, res) {
         let { name, email, is_admin } = req.body
@@ -70,13 +73,24 @@ module.exports = {
                 `
             })
 
-            return res.render('admin/users/register', {
+            let results = await User.all()
+            const users = results.rows
+            
+            isAdmin = req.session.isAdmin
+
+            return res.render('admin/users/index', {
+                users,
+                isAdmin,
                 success: 'User registered with success!'
             })
 
         }catch(err) {
             console.log(err) 
+
+            isAdmin = req.session.isAdmin
+
             return res.render('admin/users/register', {
+                isAdmin,
                 user: req.body,
                 error: 'Some error happened!'
             })
@@ -87,11 +101,20 @@ module.exports = {
             const id = req.params.id
             const user = await User.findOne({ where: {id} })
 
-            return res.render("admin/users/edit", { user })
+            isAdmin = req.session.isAdmin
+
+            return res.render("admin/users/edit", { user, isAdmin })
 
         }catch(err) {
             console.log(err)
+
+            let results = await User.all()
+            const users = results.rows
+            isAdmin = req.session.isAdmin
+
             return res.render("admin/users/index", {
+                isAdmin,
+                users,
                 error: "Some error happaned!"
             })
         }
@@ -143,13 +166,24 @@ module.exports = {
                 is_admin
             })
 
+            let results = await User.all()
+            const users = results.rows
+
+            isAdmin = req.session.isAdmin
+
             return res.render("admin/users/index", {
+                isAdmin,
+                users,
                 success: "User updated with success!"
             })
 
         }catch(err) {
             console.log(err)
-            return res.render("admin/users/index", {
+
+            isAdmin = req.session.isAdmin
+
+            return res.render("admin/users/edit", {
+                isAdmin,
                 user: req.body,
                 error: "Some error happaned!"
             })
@@ -158,14 +192,25 @@ module.exports = {
     async delete(req, res) {
         try {
             await User.delete(req.body.id)
+
+            let results = await User.all()
+            const users = results.rows
+
+            isAdmin = req.session.isAdmin
             
             return res.render("admin/users/index", {
+                isAdmin,
+                users,
                 success: "Account Successfully Deleted"
             })
 
         }catch(err) {
             console.log(err)
+
+            isAdmin = req.session.isAdmin
+
             return res.render("admin/users/edit", {
+                isAdmin,
                 user: req.body,
                 error: "Some error happened!"
             })

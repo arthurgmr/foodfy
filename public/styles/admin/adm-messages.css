@@ -1,4 +1,4 @@
-@keyframes rightmessage {
+@keyframes hidemessage {
     to {
         top: -50px;
         opacity: 0;
@@ -13,26 +13,47 @@
     border-radius: 4px;
     position: absolute;
     right: 15px;
+    top: 60px;
+    width: 250px;
+    height: 40px;
+    color: white;
+    opacity: 1;
+
+    animation: hidemessage 400ms 5s ease-out forwards;
+
+}
+
+.messages_auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    position: absolute;
+    right: 15px;
     top: 30px;
     width: 344px;
     height: 135px;
     color: white;
     opacity: 1;
 
-    animation: rightmessage 400ms 5s ease-out forwards;
+    animation: hidemessage 400ms 5s ease-out forwards;
 }
 
-.messages p {
+.messages p,
+.messages_auth p {
     font-size: 16px;
     font-weight: bold;
     color: #FFFFFF;
 
 }
 
-.messages.error {
+.messages.error,
+.messages_auth.error {
     background: #DC4747;
 }
 
-.messages.success {
+.messages.success,
+.messages_auth.success {
     background: #01B12A;
 }

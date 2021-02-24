@@ -19,6 +19,7 @@ header div.my-account {
     align-items: center;
     margin-right: 0;
     position: relative;
+    z-index: 2;
 }
 
 header ul li #logo{

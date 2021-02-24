@@ -26,7 +26,7 @@ module.exports = {
         try {
             isAdmin = req.session.isAdmin
 
-            return res.render('admin/recipes/create', { isAdmin })
+            return res.render('admin/chefs/create', { isAdmin })
 
         }catch(err) {
             console.log(err)

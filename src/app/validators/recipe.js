@@ -11,6 +11,7 @@ async function post(req, res, next) {
             let results = await Recipe.chefsSelectOptions()
             const chefsOption = results.rows
             return res.render('admin/recipes/create', {
+                isAdmin: req.session.isAdmin,
                 recipe: req.body,
                 chefsOption,
                 error: 'Please, fill all fields!'
@@ -23,6 +24,7 @@ async function post(req, res, next) {
         let results = await Recipe.chefsSelectOptions()
         const chefsOption = results.rows
         return res.render('admin/recipes/create', {
+            isAdmin: req.session.isAdmin,
             recipe: req.body,
             chefsOption,
             error: 'Please, send at least one image!'
@@ -53,6 +55,7 @@ async function put(req, res, next) {
             let results = await Recipe.chefsSelectOptions()
             const chefsOption = results.rows
             return res.render('admin/recipes/create', {
+                isAdmin: req.session.isAdmin,
                 recipe: req.body,
                 chefsOption,
                 error: 'Please, fill all fields!'
