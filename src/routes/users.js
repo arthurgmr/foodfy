@@ -13,8 +13,8 @@ const UserValidator = require('../app/validators/user')
 routes.post('/logout', SessionController.logout)
 
 //users routes of is_admin user's
-routes.get('/register', UserController.registerForm)
-routes.post('/register', UserValidator.post, UserController.post)
+routes.get('/register', isAdmin, UserController.registerForm)
+routes.post('/register', isAdmin, UserValidator.post, UserController.post)
 
 routes.get('/', isAdmin,  UserController.index)
 routes.get('/:id/edit', isAdmin, UserController.edit)
