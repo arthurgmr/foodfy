@@ -1,6 +1,7 @@
 const { date } = require("../../lib/utils.js")
 const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
+const { all } = require("../models/Recipe")
 
 
 
@@ -14,7 +15,7 @@ module.exports = {
         }
         try {
             let results = await Recipe.all()
-            const recipes = results.rows
+            let recipes = results.rows
 
             async function getImage(recipeId) {
                 let results = await Recipe.files(recipeId)
@@ -29,9 +30,11 @@ module.exports = {
                 return recipe
             })
 
-            const allRecipe = await Promise.all(filesPromise)
+            recipes = await Promise.all(filesPromise)
 
-            return res.render("public/index",{recipes: allRecipe, index_banner} )
+            const recipe = recipes[0]
+
+            return res.render("public/index",{recipes, recipe, index_banner} )
 
         }catch(err) {
             console.log(err)

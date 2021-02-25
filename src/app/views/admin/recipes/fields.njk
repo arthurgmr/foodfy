@@ -61,8 +61,8 @@
                 <input 
                 type="radio"
                 name="featured"
-                value="yes"
-                {% if recipe.featured == 'yes' %}
+                value=true
+                {% if recipe.featured %}
                     checked
                 {% endif %}                
                 > Yes
@@ -71,8 +71,8 @@
                 <input 
                 type="radio"
                 name="featured"
-                value="no"
-                {% if recipe.featured == 'no' %}
+                value=false
+                {% if not recipe.featured %}
                     checked
                 {% endif %}                                     
                 > No
@@ -86,8 +86,8 @@
                 <input 
                 type="radio"
                 name="homepage"
-                value="yes"
-                {% if recipe.homepage == 'yes' %}
+                value=true
+                {% if recipe.homepage %}
                     checked
                 {% endif %}                
                 > Yes
@@ -96,8 +96,8 @@
                 <input 
                 type="radio"
                 name="homepage"
-                value="no"
-                {% if recipe.homepage == 'no' %}
+                value=false
+                {% if not recipe.homepage %}
                     checked
                 {% endif %}                                     
                 > No

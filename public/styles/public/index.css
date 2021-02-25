@@ -1,5 +1,4 @@
-
-.banner{
+.banner {
     width: 940px; 
     height: 366px;
     display: grid;
@@ -9,11 +8,11 @@
     position: relative;
 }
 
-.banner__content {
+.banner .banner__content {
     max-width: 940px;  
 }
 
-.banner__content h1 {
+.banner .banner__content h1 {
     position: absolute;
     margin-top: 117px;
     width: 316px;
@@ -31,7 +30,7 @@
     line-height: 28px;
 }
 
-.img__banner {
+.banner .img__banner {
     margin-top: 66px;
     width: 216px;
     height: 300px;
@@ -44,7 +43,7 @@
     font-weight: bold;
 }
 
-.better__cards {
+.better_cards {
     max-width: 940px;  
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -52,33 +51,33 @@
     margin-bottom: 50px;
 }
 
-
-
-.card__img-container img {
+.better_cards .card .card-img img {
     width: 300px;
     height: 140px;
     border-radius: 15px;
     object-fit: cover;
 }
 
-.card__title p {
+.better_cards .card .card-title {
     font-size: 18px;    
     padding: 10px 0px 5px 0px;
+    margin-left: 0;
 }
 
-.card__author {
+.better_cards .card .card-author {
     font-size: 14px;
     color: #777777;
+    margin-left: 0;
 }
 
 
 /* === FEATURED === */
 
-.featured-wrapper.card__img-container {
+.better_cards .card .featured-wrapper.card__img-container {
     position: relative;
 }
 
-.featured {
+.better_cards .card .featured {
     position: absolute;
     background: #fbdfdb;
     color: #111111;

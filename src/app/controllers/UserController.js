@@ -5,8 +5,6 @@ const crypto = require(`crypto`)
 const mailer = require('../../lib/mailer')
 const { hash } = require("bcryptjs")
 
-
-
 module.exports = {
     async index(req, res) {
         try {
@@ -123,7 +121,6 @@ module.exports = {
         try {
             const { user } = req
             let { name, email, is_admin } = req.body
-            console.log(email)
 
             //check if is change email
             //if emailEqual is false, send new password for user

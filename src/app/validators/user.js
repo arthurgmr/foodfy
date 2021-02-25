@@ -75,8 +75,6 @@ async function put(req, res, next) {
         error: "User not found!"
     })
 
-    console.log('here')
-
     //post user in req.user
     req.isAdmin = isAdmin
     req.user = user

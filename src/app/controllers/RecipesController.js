@@ -26,11 +26,12 @@ async index(req, res){
             return recipe
         })
 
-        const allRecipe = await Promise.all(filesPromise)
+        const allRecipes = await Promise.all(filesPromise)
 
         isAdmin = req.session.isAdmin
 
-        return res.render("admin/recipes/index", {recipes: allRecipe, isAdmin})
+        return res.render("admin/recipes/index", {recipes: allRecipes, isAdmin})
+        
     } catch(err) {
         console.log(err)
     }
