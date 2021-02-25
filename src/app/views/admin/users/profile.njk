@@ -10,25 +10,18 @@
 {% block content %}
 
    <section class="content forms">
-
-       <form id="form-delete" method="POST" action="/admin/users/{{user.id}}/edit/?_method=DELETE">
-            <div class="options"> 
-                <input type="hidden" name="id" value="{{user.id}}">
-                <button class="button-delete" type="submit">Delete</button>
-            </div>
-        </form>
         
-        <form method="POST" action="/admin/users/{{user.id}}/edit/?_method=PUT"> 
+        <form method="POST" action="/admin/profile/?_method=PUT"> 
             <div class="menu">
                 <div class="title">
-                    <p>Edit User</p>
+                    <p>Welcome {{firstNameUser}}</p>
                 </div>
                 <div class="options">                        
                     <button type="submit">Save</button>                      
                 </div>
             </div>
             
-            {% include 'admin/users/fields.njk' %}
+            {% include 'admin/users/fields_profile.njk' %}
 
             <input type="hidden" name="id" value="{{user.id}}">           
 

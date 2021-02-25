@@ -191,12 +191,21 @@ module.exports = {
     },
     async delete(req, res) {
         try {
+            isAdmin = req.session.isAdmin
+            const { id } = req.body
+
+            const user = await User.findOne({ where: {id} })
+
+            if(isAdmin) return res.render("admin/users/edit", {
+                isAdmin,
+                user,
+                error: "Sorry, but you can't delete your account!"
+            })
+
             await User.delete(req.body.id)
 
             let results = await User.all()
             const users = results.rows
-
-            isAdmin = req.session.isAdmin
             
             return res.render("admin/users/index", {
                 isAdmin,

@@ -52,7 +52,7 @@ module.exports = {
     },
     getFirstName(value) {
         return value
-            .replace(/(')/g, "$1'").split(' ').slice(0, -2).join(' ');
+            .replace(/(')/g, "$1'").split(' ').slice(0, -1).join(' ');
     }
 
 }

@@ -6,8 +6,8 @@ const ProfileController = require('../app/controllers/ProfileController')
 
 
 //user profile
-routes.get('/', UserValidator.show, ProfileController.index) //show user
-// routes.put('/', ProfileController.put)
+routes.get('/', UserValidator.show, ProfileController.show) //show user profile
+routes.put('/', UserValidator.update, ProfileController.update) //edit user profile
 
 
 module.exports = routes
