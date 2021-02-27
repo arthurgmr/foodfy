@@ -8,11 +8,11 @@
     position: relative;
 }
 
-.banner .banner__content {
+.banner .banner-content {
     max-width: 940px;  
 }
 
-.banner .banner__content h1 {
+.banner .banner-content h1 {
     position: absolute;
     margin-top: 117px;
     width: 316px;
@@ -21,7 +21,7 @@
     
 }
 
-.banner__content p {
+.banner-content p {
     margin-top: 165px;
     width: 316px;
     font-size: 18px;
@@ -30,7 +30,7 @@
     line-height: 28px;
 }
 
-.banner .img__banner {
+.banner .img-banner {
     margin-top: 66px;
     width: 216px;
     height: 300px;
@@ -73,7 +73,7 @@
 
 /* === FEATURED === */
 
-.better_cards .card .featured-wrapper.card__img-container {
+.better_cards .card .featured-wrapper.card-img {
     position: relative;
 }
 

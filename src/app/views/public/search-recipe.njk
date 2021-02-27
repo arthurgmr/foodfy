@@ -8,26 +8,25 @@
 
 
 {% block content %}
-        <section class="menu">
+        <section class="section_title">
             <div class="title">
                 <p>Searching by "{{filter}}"</p>
             </div>
         </section>
          
-        <section class="cards">
-
+        <section class="cards search">
             {% for recipe in recipes %}
             <div class="card">
-                <div class="card__img-container {{ 'featured-wrapper' if item.featured }}">
+                <div class="card-img {{ 'featured-wrapper' if item.featured }}">
                     <a href="/recipes/{{recipe.id}}"><img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}"></a>
-                    {% if recipe.featured == 'yes' %}
+                    {% if recipe.featured %}
                         <div class="featured">Featured</div>                    
                     {% endif %}
                 </div>
-                <div class="card__title">
+                <div class="card-title">
                     <p>{{recipe.title}}</p>
                 </div>
-                <div class="card__author">
+                <div class="card-author">
                     <p>{{recipe.chef_name}}</p>
                 </div>
             </div>

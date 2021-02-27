@@ -10,12 +10,14 @@ module.exports = {
             ORDER BY name DESC
         `)
     },
+
     find(id) {
         return db.query(`
             SELECT * FROM users
             WHERE id = $1`, [id]
         )
     },
+
     async findOne(filters) {
         let query = `SELECT * FROM users`
 
@@ -34,6 +36,7 @@ module.exports = {
         const results = await db.query(query)
         return results.rows[0]
     },
+
     async create(data) {
         const query = `
         INSERT INTO users (
@@ -60,6 +63,7 @@ module.exports = {
 
 
     },
+
     async update(id, fields) {
 
         let query = "UPDATE users SET"
@@ -79,6 +83,7 @@ module.exports = {
         })
         await db.query(query)
     },
+    
     async delete(id) {
         //get all recipes of user
         let results = await Recipe.findRecipeOfUser(id)

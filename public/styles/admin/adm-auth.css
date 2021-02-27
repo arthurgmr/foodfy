@@ -55,6 +55,7 @@ body {
 /* width forms */
 .login-container form {
     margin-top: 100px;
+    max-width: 500px;
     width: 500px;
     height: 275px;
     text-align: left;    
@@ -69,7 +70,7 @@ body {
 
 
 /* description of input */
-.login-container .section .fields div:nth-child(1) { 
+.login-container .section .field > div:nth-child(1) { 
     font-weight: bold;
     font-size: 16px;
     color: #111111;
@@ -77,23 +78,35 @@ body {
 }
 
 /* input */
-.login-container .section .fields div:nth-child(2) {
-    background: #FFFFFF;
+.login-container .section .field .input input {
+    width: 459px;
+
+    box-shadow: 2px 2px 2px -4px rgb(60, 60, .9);
     border: 1px solid #DDDDDD;
     border-radius: 4px;
+
     font-size: 14px;
     color: #111111;
+
     padding: 10px 20px;
     margin-top: 10px;
 }
 
 /* input */
-.login-container .section .fields input {
+.login-container .section .field input {
     width: 100%;
     outline: none;
     font-size: 16px;
     color: #111111;
     line-height: 24px;
+}
+
+.login-container .section .field div .error {
+    background-color: #e74c3c;
+    padding: 4px;
+    border-radius: 4px;
+    color: white;
+    margin-top: 4px;
 }
 
 .login-container .footer {

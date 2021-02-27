@@ -17,6 +17,7 @@ module.exports = {
 
         return db.query(query, values) 
     },
+
     createRecipeFiles ({recipeId, fileId}) {
         const query = `
         INSERT INTO recipe_files (
@@ -32,6 +33,7 @@ module.exports = {
 
         return db.query(query, values) 
     },
+
     findRecipeFiles(id) {
         return db.query(`
             SELECT * 
@@ -40,9 +42,11 @@ module.exports = {
             WHERE recipe_id = $1
         `, [id])
     },
+
     deleteRecipeFiles(id){
         return db.query(`DELETE FROM recipe_files WHERE file_id =$1`, [id])
     },
+    
     async delete(id) {
         try {
 

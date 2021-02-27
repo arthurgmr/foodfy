@@ -1,6 +1,5 @@
 const Recipe = require('../models/Recipe')
 
-
 //post recipe
 async function post(req, res, next) {
     //check fill all fields

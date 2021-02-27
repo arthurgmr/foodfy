@@ -1,5 +1,5 @@
 module.exports = {
-/*  Função para calcular a idade da pessoa(data atual - data de nascimento); */
+/*  Function to calculate the person's age (current date - date of birth); */
     age(timestamp) {
         const today = new Date()
         const birthDate = new Date(timestamp)
@@ -12,8 +12,7 @@ module.exports = {
         }
         return age
     },
-
-/*  Função para converter a data de mile segundo para o formato html(yyy-mm-dd); */
+/*  Function to convert the second mile date to html format (yyy-mm-dd); */
     date(timestamp) {
         
         const date = new Date(timestamp)

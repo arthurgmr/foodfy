@@ -17,19 +17,20 @@
 
         <div class="section">
 
-            <div class="fields error">
+            <div class="field">
                 <div>Email</div>                
-                    <div>
-                        <input 
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            value="{{user.email}}"                
-                        >
-                    </div>
+                <div class="input">
+                    <input 
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        value="{{user.email}}"
+                        onblur="Validate.apply(this, 'isEmail')"                 
+                    >
+                </div>
             </div>
 
-            <div class="fields error">
+            <div class="field">
                 <div>Passaword</div>
                     <div class="input">
                         <input 

@@ -1,6 +1,5 @@
 const db = require("../../config/db")
 
- 
  module.exports = {
     all(data) {
         
@@ -57,6 +56,7 @@ const db = require("../../config/db")
         WHERE recipes.title ILIKE '%${filter}%'
         OR chefs.name ILIKE '%${filter}%'`)
     },
+    
     findRecipeOfUser(id) {
         return db.query(`
             SELECT * 

@@ -1,6 +1,5 @@
 
 /* SCRIPT MENU BOLD */
-
 const currentPage = location.pathname
 const menuItens = document.querySelectorAll("header div #menu")
 
@@ -12,7 +11,6 @@ for (item of menuItens) {
 } 
 
 /* PAGINATE OF RECIPES */
-
 function paginate(selectedPage, totalPages) {
     let pages = [],
     oldPage
@@ -68,8 +66,6 @@ if(pagination) {
 
 /* SHOW AND HIDE BUTTON*/
 /* INGREDIENTS */
-
-
 function showAndHideIngredients() {
     
     const showingr = document.querySelector('.showingr')
@@ -96,7 +92,6 @@ if(ingredients) {
 
 /* SHOW AND HIDE BUTTON*/
 /* PREPARATION */
-
 function showAndHidePreparation () {
     
     const showprep = document.querySelector('.showprep')
@@ -125,7 +120,6 @@ if(preparation) {
 
 /* SHOW AND HIDE BUTTON*/
 /* INFORMATION */
-
 function showAndHideInformation() {
     const showinf = document.querySelector('.showinf')
     const hideinf = document.querySelector('.hideinf')
@@ -151,7 +145,6 @@ if(information) {
 }
 
 // SET IMAGE ON RECIPES
-
 const ImageGallery = {
     highlight: document.querySelector('.item-container .highlight > img'),
     previews: document.querySelectorAll('.gallery-preview img'),

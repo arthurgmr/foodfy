@@ -1,10 +1,5 @@
-const { age, date} = require("../../lib/utils.js")
-
 const Recipe = require("../models/Recipe")
 const File = require("../models/File")
-const { file } = require("../models/Chef.js")
-
-
 
 module.exports = {
 
@@ -34,22 +29,33 @@ async index(req, res){
         
     } catch(err) {
         console.log(err)
+        return res.render("admin/recipes/index", {
+            isAdmin: req.session.isAdmin,
+            error: "Sorry, something went wrong. Contact your administrator."
+        })
     }
 },
 
 async create(req, res){
+    try {
+        let results = await Recipe.chefsSelectOptions()
+        const chefsOption = results.rows
     
-    let results = await Recipe.chefsSelectOptions()
-    const chefsOption = results.rows
+        isAdmin = req.session.isAdmin
+    
+        return res.render("admin/recipes/create", {chefsOption, isAdmin})    
 
-    isAdmin = req.session.isAdmin
-
-    return res.render("admin/recipes/create", {chefsOption, isAdmin})     
+    }catch(err) {
+        console.log(err)
+        return res.render("admin/chefs/index", {
+            isAdmin: req.session.isAdmin,
+            error: "Sorry, something went wrong. Contact your administrator."
+        })
+    } 
 
 },
 
 async post(req, res){
-
    try{  
         
       req.body.user_id = req.session.userId
@@ -67,11 +73,24 @@ async post(req, res){
       })
 
       await Promise.all(recipeFilePromise)
-      
-      return res.redirect(`/admin/recipes/${recipeId}`)
+
+      let results = await Recipe.chefsSelectOptions()
+      const chefsOption = results.rows
+  
+      isAdmin = req.session.isAdmin
+  
+      return res.render("admin/recipes/create", {
+          chefsOption, 
+          isAdmin,
+          success: "Recipe successfully created!"
+        })   
 
     }catch(err) {
       console.log(err)
+      return res.render("admin/chefs/index", {
+        isAdmin: req.session.isAdmin,
+        error: "Sorry, something went wrong. Contact your administrator."
+        })
     }
 
 },
@@ -96,6 +115,10 @@ async show(req, res){
 
     }catch(err) {
         console.log(err)
+        return res.render("admin/chefs/index", {
+            isAdmin: req.session.isAdmin,
+            error: "Sorry, something went wrong. Contact your administrator."
+            })
     }
 },
 
@@ -118,10 +141,20 @@ async edit(req, res){
 
         isAdmin = req.session.isAdmin
 
-        return res.render("admin/recipes/edit", {recipe, chefsOption, files, isAdmin})
+        return res.render("admin/recipes/edit", {
+            recipe, 
+            chefsOption, 
+            iles, 
+            sAdmin,
+            success: "Recipe successfully edited!"
+        })
 
     }catch(err) {
         console.log(err)
+        return res.render("admin/chefs/index", {
+            isAdmin: req.session.isAdmin,
+            error: "Sorry, something went wrong. Contact your administrator."
+            })
     }
 },
 
@@ -163,6 +196,10 @@ async put(req, res){
 
     }catch(err) {
         console.log(err)
+        return res.render("admin/chefs/index", {
+            isAdmin: req.session.isAdmin,
+            error: "Sorry, something went wrong. Contact your administrator."
+            })
     }
 },
 
@@ -178,10 +215,38 @@ async delete(req, res){
     
         await Recipe.delete(req.body.id)
         
-        return res.redirect("/admin/recipes")
+        let results = await Recipe.all()
+        const recipes = results.rows
+
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
+            const files = results.rows.map(file =>
+                `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            )
+            return files[0]
+        }
+
+        const filesPromise = recipes.map(async recipe => {
+            recipe.image = await getImage(recipe.id)
+            return recipe
+        })
+
+        const allRecipes = await Promise.all(filesPromise)
+
+        isAdmin = req.session.isAdmin
+
+        return res.render("admin/recipes/index", {
+            recipes: allRecipes, 
+            isAdmin,
+            success: "Recipe successfully deleted!"
+        })
 
     }catch(err) {
         console.log(err)
+        return res.render("admin/chefs/index", {
+            isAdmin: req.session.isAdmin,
+            error: "Sorry, something went wrong. Contact your administrator."
+            })
     }
 },
 }

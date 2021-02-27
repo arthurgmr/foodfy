@@ -10,15 +10,14 @@
 {% block content %}
          
                  
-    <section class="menu">
+    <section class="section-title">
         <div class="title">
             <p>Chef: {{chef.name}}</p>
         </div>
     </section>
 
     <section class="content-chef">          
-        <div class="container-chef">
-        
+        <div class="container-chef">        
             <img id="img_chef" src="{{file[0].src}}" alt="Image off {{chef.name}}">
             <h1>{{chef.name}}</h1>
             {% if chef.total_recipes == 1 %}
@@ -29,15 +28,15 @@
         </div>        
     </section>
 
-    <section class="content_recipe">  
+    <section class="content-recipe">  
         <h3>Recipes</h3>            
         <div class="cards">
             {% for recipe in recipes %}
-            <div class="card_index">
-                <div class="card__img-container">
+            <div class="card-index">
+                <div class="card-img-container">
                     <img src="{{recipe.image}}" alt="Image off {{recipe.title}}">
                 </div>
-                <div class="card__inf">
+                <div class="card-inf">
                     <p>{{recipe.title}}</p>
                     <p>{{chef.name}}</p>
                     <a href="/recipes/{{recipe.id}}" class="view_recipe">View</a>

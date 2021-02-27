@@ -2,7 +2,7 @@ header div #menu2 {
     font-weight: bold;
 }
 
-.menu {
+.section-title {
     margin-top: 10px;
     margin-bottom: 24px;
     display: grid;
@@ -10,7 +10,7 @@ header div #menu2 {
  
 }
 
-.title {
+.section-title .title {
     margin-left: 0;
     font-size: 24px;
     color: #111111;
@@ -22,7 +22,7 @@ header div #menu2 {
     text-align: center;
 }
 
-.container-chef img {
+.content-chef .container-chef img {
     width: 200px;
     height: 200px;
     border-radius: 100px;
@@ -31,22 +31,22 @@ header div #menu2 {
     box-shadow: 0px 2px 6px -2px;
 }
 
-.container-chef h1 {
+.content-chef .container-chef h1 {
     font-size: 36px;
     color: #111111;
     margin-bottom: 4px;
 }
 
-.container-chef p {
+.content-chef .container-chef p {
     margin-bottom: 50px;
 }
 
-.content_recipe{
+.content-chef .content-recipe{
     width: 940px;
     text-align: left;
 }
 
-.cards {
+.content-recipe .cards {
     width: 940px;
     margin-top: 30px;
     display: grid;
@@ -55,17 +55,17 @@ header div #menu2 {
     margin-bottom: 50px;
 }
 
-.card_index {
+.cards .card-index {
     display: flex;
     align-items: center;
     margin: 0;
 }
 
-.card__img-container {
+.cards .card-index .card-img-container {
     margin: 0px 20px 0px 0px;
 }
 
-.card__img-container img {
+.cards .card-index .card-img-container img {
     width: 172px;
     height: 80px;
     border-radius: 15px;
@@ -73,23 +73,23 @@ header div #menu2 {
     box-shadow: 0px 2px 6px -2px;
 }
 
-.card__inf {
+.cards .card-index .card-inf {
     margin: 0;
 }
 
-.card__inf p:first-child {
+.cards .card-index .card-inf p:first-child {
     font-size: 18px;
     color: #111111;
     margin-bottom: 5px;
 }
 
-.card__inf p {
+.cards .card-index .card-inf p {
     font-size: 14px;
     color: #777777;
     margin-bottom: 7px;
 }
 
-.card__inf a {
+.cards .card-index .card-inf a {
     text-decoration: none;
     font-size: 14px;
     color: #6558C3;

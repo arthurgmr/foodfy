@@ -21,7 +21,7 @@ async function login(req, res, next) {
     //check if has all fields
     const fillAllFields = checkAllFields(req.body)
     if(fillAllFields) {
-        return res.render("/admin/session/login", fillAllFields)
+        return res.render("admin/session/login", fillAllFields)
     }
 
     //check register user;

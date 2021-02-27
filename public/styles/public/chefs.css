@@ -9,17 +9,17 @@
     margin-bottom: 50px;
 }
 
-.card_chef {
+.cards_chefs .card_chef {
     display: flex;
     align-items: center;
     margin: 0;
 }
 
-.card__img-container-chef {
+.cards_chefs .card_chef .card-img-container-chef {
     margin: 0px 20px 0px 0px;
 }
 
-.card__img-container-chef img {
+.cards_chefs .card_chef .card-img-container-chef img {
     width: 64px;
     height: 64px;
     border-radius: 100px;
@@ -28,19 +28,19 @@
 
 }
 
-.card__inf-chef p:first-child {
+.cards_chefs .card_chef .card-inf-chef p:first-child {
     font-size: 18px;
     color: #111111;
     margin-bottom: 5px;
 }
 
-.card__inf-chef p {
+.cards_chefs .card_chef .card-inf-chef p {
     font-size: 14px;
     color: #777777;
     margin-bottom: 7px;
 }
 
-.card__inf-chef a {
+.cards_chefs .card_chef .card-inf-chef a {
     text-decoration: none;
     font-size: 14px;
     color: #6558C3;

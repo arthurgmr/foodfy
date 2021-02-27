@@ -48,21 +48,7 @@ if(formDelete) {
     })
 } 
 
-/* ADMIN */
-/* FUNÇÃO DE CLIQUE E REDIRECIONAMENTO PARA A EDITAR RECEITA */
-/* OBS: com a utilização do bando de dados não foi necessário a utilização
-deste script, porque dentro do banco contém a id; */
-
-/* const recipes = document.querySelectorAll('.view_recipe')
-
-for (let i = 0; recipes.length; i++) {
-    recipes[i].addEventListener('click', function() {
-        window.location.href = `/admin/${i}`
-    })
-} */
-
 // ADD AND REMOVE INPUT INGREDIENT
-
 function addIngredient() {
     const ingredients = document.querySelector("#ingredients");
     const fieldContainer = document.querySelectorAll(".ingredient");
@@ -99,7 +85,6 @@ const removeI = document.querySelector(".remove-ingredient")
     }
 
 // ADD AND REMOVE INPUT PREPARATION
-
 function addPreparation() {
     const preparations = document.querySelector("#preparations");
     const fieldContainer = document.querySelectorAll(".preparation");
@@ -136,6 +121,7 @@ const removeP = document.querySelector(".remove-preparation")
     }
 
 
+// PHOTOS UPLOAD
 const PhotosUpload = {
     input: "",
     preview: document.querySelector('#photos-preview'),
@@ -326,7 +312,6 @@ const PhotosUploadChef = {
 }
 
 // SET IMAGE ON RECIPES
-
 const ImageGallery = {
     highlight: document.querySelector('.gallery .highlight > img'),
     previews: document.querySelectorAll('.gallery-preview img'),
@@ -357,6 +342,47 @@ const Lightbox = {
         Lightbox.target.style.top ="-100%"
         Lightbox.target.bottom = "initial"
 
+    }
+
+}
+
+// VALIDATE INPUT
+const Validate = {
+    apply(input, func) {
+        Validate.clearErrors(input)
+
+        let results = Validate[func](input.value)
+        input.value = results.value
+
+        if(results.error)
+            Validate.displayError(input, results.error)
+
+    },    
+    displayError(input, error) {
+        const div = document.createElement('div')
+        div.classList.add('error')
+        div.innerHTML = error
+        input.parentNode.appendChild(div)
+        input.focus()
+    },
+    clearErrors(input) {
+        const errorDiv = input.parentNode.querySelector(".error")
+        if (errorDiv)
+            errorDiv.remove()
+    },
+    isEmail(value) {
+        let error = null
+
+        //creating regular expression to validate email
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+/
+
+        if (!value.match(mailFormat))
+            error = "Invalid Email!"
+
+        return {
+            error,
+            value
+        }
     }
 
 }

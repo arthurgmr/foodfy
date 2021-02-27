@@ -20,8 +20,13 @@ module.exports = {
 
         }catch(err) {
             console.log(err)
+            return res.render("admin/chefs/index", {
+                isAdmin: req.session.isAdmin,
+                error: "Sorry, something went wrong. Contact your administrator."
+            })
         }
     },
+
     create(req, res){
         try {
             isAdmin = req.session.isAdmin
@@ -30,43 +35,45 @@ module.exports = {
 
         }catch(err) {
             console.log(err)
+            return res.render('admin/chefs/create', {
+                isAdmin: req.session.isAdmin,
+                error: "Sorry, something went wrong. Contact your administrator."
+            })
         }
 
     },
+
     async post(req, res){
-        const keys = Object.keys(req.body)
 
-        //checking fill in all fields;
-        for (key of keys) {
-            if (req.body[key] == "") {
-                return res.render('admin/chefs/create', {
-                    chef: req.body,
-                    error: 'Please, fill all fields!'
-                })
-            }
-        }
-
-        //checking send file;
-        if(req.files.length == 0)
-            return res.render('admin/chefs/create', {
-                chef: req.body,
-                error: 'Please, send at least one image!'
-            })
-
-        try {
-            
+        try {            
             //save file;
             let results = await File.create(...req.files)
             const fileId = results.rows[0].id
 
             //save chef;
             results = await Chef.create(req.body, fileId)
-            const chefId = results.rows[0].id
 
-            return res.redirect(`/admin/chefs/${chefId}`)
+            results = await Chef.all()
+            const chefs = results.rows.map(chef => ({
+                ...chef,
+                src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
+            }))
+
+            isAdmin = req.session.isAdmin
+    
+            return res.render("admin/chefs/index", { 
+                chefs, 
+                isAdmin,
+                success: "Chef successfully created!"
+            })
 
         }catch(err) {
             console.log(err)
+            return res.render('admin/chefs/create', {
+                isAdmin: req.session.isAdmin,
+                chef: req.body,
+                error: "Sorry, something went wrong. Contact your administrator."
+            })
         }
 
     },
@@ -78,7 +85,7 @@ module.exports = {
             const chef = results.rows[0]
 
             //check existent the chef;    
-            if(!chef) return res.send("Chef not found!")
+            if(!chef) return res.redirect("/admin/chefs")
 
             //format date;
             chef.created_at = date(chef.created_at).format
@@ -121,6 +128,10 @@ module.exports = {
 
         }catch(err) {
             console.log(err)
+            return res.render("admin/chefs/index", {
+                isAdmin: req.session.isAdmin,
+                error: "Sorry, something went wrong. Contact your administrator."
+            })
         }
 
     },
@@ -146,23 +157,15 @@ module.exports = {
             
         }catch(err) {
             console.log(err)
+            return res.render("admin/chefs/index", {
+                isAdmin: req.session.isAdmin,
+                error: "Sorry, something went wrong. Contact your administrator."
+            })
         }
 
     },
 
     async put(req, res){
-        const keys = Object.keys(req.body)
-
-        //checking fill in all fields;
-        for (key of keys) {
-            if (req.body[key] == "") {
-                return res.render('admin/chefs/create', {
-                    chef: req.body,
-                    error: 'Please, fill all fields!'
-                })
-            }
-        }
-
         try {
             //check exists a send new file;
             if(req.files.length != 0) {
@@ -180,12 +183,28 @@ module.exports = {
                 
                 //update chef without fileId;
                 await Chef.updateFields(req.body)
-            } 
+            }
+            
+            results = await Chef.all()
+            const chefs = results.rows.map(chef => ({
+                ...chef,
+                src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
+            }))
+
+            isAdmin = req.session.isAdmin
     
-            return res.redirect(`/admin/chefs/${req.body.id}`)
+            return res.render("admin/chefs/index", { 
+                chefs, 
+                isAdmin,
+                success: "Chef successfully updated!"
+            })
 
         }catch(err) {
             console.log(err)
+            return res.render("admin/chefs/index", {
+                isAdmin: req.session.isAdmin,
+                error: "Sorry, something went wrong. Contact your administrator."
+            })
         }
 
     },
@@ -196,9 +215,25 @@ module.exports = {
             await File.delete(req.body.idFile)
             await Chef.delete(req.body.id)
 
-            return res.redirect("/admin/chefs")
+            results = await Chef.all()
+            const chefs = results.rows.map(chef => ({
+                ...chef,
+                src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
+            }))
+
+            isAdmin = req.session.isAdmin
+    
+            return res.render("admin/chefs/index", { 
+                chefs, 
+                isAdmin,
+                success: "Chef successfully deleted!"
+            })
         }catch(err) {
             console.log(err)
+            return res.render("admin/chefs/index", {
+                isAdmin: req.session.isAdmin,
+                error: "Sorry, something went wrong. Contact your administrator."
+            })
         }
     },
 }

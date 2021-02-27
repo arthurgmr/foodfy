@@ -101,7 +101,11 @@ module.exports = {
 
             isAdmin = req.session.isAdmin
 
-            return res.render("admin/users/edit", { user, isAdmin })
+            return res.render("admin/users/edit", { 
+                user, 
+                isAdmin,
+                success: "User edited successfully!"
+            })
 
         }catch(err) {
             console.log(err)
@@ -188,12 +192,12 @@ module.exports = {
     },
     async delete(req, res) {
         try {
-            isAdmin = req.session.isAdmin
+            userId = req.session.userId
             const { id } = req.body
 
             const user = await User.findOne({ where: {id} })
 
-            if(isAdmin) return res.render("admin/users/edit", {
+            if(userId == id) return res.render("admin/users/edit", {
                 isAdmin,
                 user,
                 error: "Sorry, but you can't delete your account!"

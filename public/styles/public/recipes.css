@@ -1,38 +1,22 @@
 
 
-.menu {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: grid;
-    grid-template-columns: 470px 470px;
- 
-}
-
-.title {
-    margin-left: 0;
-    font-size: 24px;
-    color: #111111;
-    font-weight: bold;
-}
-
-
-.cards {
+.cards.recipes {
     max-width: 940px;
     margin-top: 20px;  
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
-.card {
+.cards.recipes .card {
     display: flex;
     flex-direction: column;
-    position: relative;
-
+    position: relative;     
+    
 }
 
-.card__img-container img {
+.cards.recipes .card .card-img img {
     width: 300px;
     height: 140px;
     border-radius: 15px;
@@ -41,28 +25,27 @@
 
 }
 
-.card__title {
+.cards.recipes .card .card-title {
     font-size: 18px;    
     padding: 10px 0px 5px 0px;
     margin-left: 0;
     
 }
 
-.card__author {
+.cards.recipes .card .card-author {
     font-size: 14px;
     color: #777777;
     margin-bottom: 10px;
     margin-left: 0;
-
 }
 
 /* === FEATURED === */
 
-.featured-wrapper.card__img-container {
+.cards.recipes .card .featured-wrapper.card-img {
     position: relative;
 }
 
-.featured {
+.cards.recipes .card .featured {
     position: absolute;
     background: #fbdfdb;
     color: #111111;
@@ -72,4 +55,23 @@
     border-radius: 16px;
     top: -14px;
 
+}
+
+/* === PAGINATE === */
+
+.pagination {
+    margin-bottom: 20px;
+}
+.pagination a,
+.pagination span {
+    color: #777777;
+    text-decoration: none;
+    margin-right: 16px;
+    margin-bottom: 20px;
+}
+.pagination a:hover {
+    background-color: #fbdfdb;
+    border-radius: 100px;
+    padding: 8px;
+    transition: 300ms;
 }

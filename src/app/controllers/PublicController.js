@@ -1,9 +1,6 @@
 const { date } = require("../../lib/utils.js")
 const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
-const { all } = require("../models/Recipe")
-
-
 
 module.exports = {
     
@@ -136,6 +133,7 @@ module.exports = {
             })
 
             const allRecipe = await Promise.all(filesPromise)
+
             const pagination = {
                 total_recipes: Math.ceil(recipes[0].total / limit),
                 page
@@ -251,15 +249,25 @@ module.exports = {
 
             try {
                 let results = await Recipe.findBy(filter)
-                const recipes = results.rows          
-        
-                results = await Recipe.files(req.params.id)
-                const files = results.rows.map(file => ({
-                    ...file,
-                    src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-                }))
-                
-            return res.render("public/search-recipe", {recipes,files, filter})
+                let recipes = results.rows
+
+
+                async function getImage(recipeId) {
+                    let results = await Recipe.files(recipeId)
+                    const files = results.rows.map(file =>
+                        `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+                    )
+                    return files[0]
+                }
+
+                const filesPromise = recipes.map(async recipe => {
+                    recipe.image = await getImage(recipe.id)
+                    return recipe
+                })
+
+                recipes = await Promise.all(filesPromise)
+                               
+            return res.render("public/search-recipe", {recipes, filter})
         
             }catch(err) {
                 console.log(err)
@@ -269,6 +277,7 @@ module.exports = {
             }
 
         } else {
+            console.log('here')
             this.recipes
         }
     }
