@@ -1,16 +1,19 @@
+const { unlinkSync } = require("fs")
+
 const Recipe = require("../models/Recipe")
+const Chef = require("../models/Chef")
 const File = require("../models/File")
+const RecipeFiles = require("../models/RecipeFiles")
 
 module.exports = {
 
 async index(req, res){
     try {
-        let results = await Recipe.all()
-        const recipes = results.rows
+        const recipes = await Recipe.all()
 
         async function getImage(recipeId) {
-            let results = await Recipe.files(recipeId)
-            const files = results.rows.map(file =>
+            let recipeFiles = await RecipeFiles.findFiles(recipeId)
+            const files = recipeFiles.map(file =>
                 `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
             )
             return files[0]
@@ -25,7 +28,10 @@ async index(req, res){
 
         isAdmin = req.session.isAdmin
 
-        return res.render("admin/recipes/index", {recipes: allRecipes, isAdmin})
+        return res.render("admin/recipes/index", {
+            recipes: allRecipes, 
+            isAdmin,
+        })
         
     } catch(err) {
         console.log(err)
@@ -38,8 +44,7 @@ async index(req, res){
 
 async create(req, res){
     try {
-        let results = await Recipe.chefsSelectOptions()
-        const chefsOption = results.rows
+        const chefsOption = await Chef.findAll()
     
         isAdmin = req.session.isAdmin
     
@@ -47,7 +52,7 @@ async create(req, res){
 
     }catch(err) {
         console.log(err)
-        return res.render("admin/chefs/index", {
+        return res.render("admin/recipes/index", {
             isAdmin: req.session.isAdmin,
             error: "Sorry, something went wrong. Contact your administrator."
         })
@@ -58,10 +63,26 @@ async create(req, res){
 async post(req, res){
    try{  
         
-      req.body.user_id = req.session.userId
+      let {
+        title,
+        chef_id,
+        featured,
+        homepage,
+        ingredients,
+        preparation,
+        information
+      } = req.body
 
-      let results = await Recipe.create(req.body)
-      const recipeId = results.rows[0].id
+      recipeId = await Recipe.create({
+        title,
+        chef_id,
+        user_id: req.session.userId,
+        featured,
+        homepage,
+        ingredients,
+        preparation,
+        information
+      })
 
       const filesPromise = req.files.map(file => File.create({...file}))
       const filesResults = await Promise.all(filesPromise)
@@ -69,13 +90,12 @@ async post(req, res){
       const recipeFilePromise = filesResults.map( file => {
           const fileId = file.rows[0].id
 
-          File.createRecipeFiles({recipeId, fileId})
+          RecipeFiles.create({recipe_id: recipeId, file_id: fileId})
       })
 
       await Promise.all(recipeFilePromise)
 
-      let results = await Recipe.chefsSelectOptions()
-      const chefsOption = results.rows
+      const chefsOption = await Chef.findAll()
   
       isAdmin = req.session.isAdmin
   
@@ -97,15 +117,14 @@ async post(req, res){
 
 async show(req, res){
     try {
-        let results = await Recipe.find(req.params.id)
-        const recipe = results.rows[0]            
-            
+        const recipe = await Recipe.find(req.params.id)
+
         if(!recipe) return res.send("Ricipe not found!")
 
-        results = await Recipe.files(req.params.id)
-        const files = results.rows.map(file => ({
+        let files = await RecipeFiles.findFiles(req.params.id)            
+        files = files.map(file => ({
             ...file,
-            src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            src: `${req.protocol}://${req.headers.host}${file.path.replace("public","")}`
         }))
 
         isAdmin = req.session.isAdmin
@@ -125,15 +144,13 @@ async show(req, res){
 async edit(req, res){
 
     try {
-        let results = await Recipe.find(req.params.id)
-        const recipe = results.rows[0]
+        const recipe = await Recipe.find(req.params.id)
+
         if(!recipe) return res.send("Ricipe not found!")
 
-        results = await Recipe.chefsSelectOptions()
-        const chefsOption = results.rows            
+        const chefsOption = await Chef.findAll()
 
-        results = await File.findRecipeFiles(recipe.id)
-        let files = results.rows            
+        let files = await RecipeFiles.findFiles(recipe.id)            
         files = files.map(file => ({
             ...file,
             src: `${req.protocol}://${req.headers.host}${file.path.replace("public","")}`
@@ -144,9 +161,8 @@ async edit(req, res){
         return res.render("admin/recipes/edit", {
             recipe, 
             chefsOption, 
-            iles, 
-            sAdmin,
-            success: "Recipe successfully edited!"
+            files, 
+            isAdmin
         })
 
     }catch(err) {
@@ -170,7 +186,7 @@ async put(req, res){
             const recipeFilePromise = filesResults.map( file => {
                 const fileId = file.rows[0].id
       
-                File.createRecipeFiles({recipeId, fileId})
+                RecipeFiles.create({recipe_id: recipeId, file_id: fileId})
             })
       
             await Promise.all(recipeFilePromise)
@@ -184,15 +200,52 @@ async put(req, res){
 
             // remove file in table recipe_files and table files
             const removedFilesPromise = removedFiles.map(id => {
-                File.deleteRecipeFiles(id)
+                RecipeFiles.delete(id)
+
+                const file = File.find({ where:id })
+                           
+                unlinkSync(file.path)
+
                 File.delete(id)
             })
             await Promise.all(removedFilesPromise)
         }
 
-        await Recipe.update(req.body)
+        await Recipe.update(req.body.id, {
+            title: req.body.title,
+            chef_id: req.body.chef_id,
+            featured: req.body.featured,
+            homepage: req.body.homepage,
+            ingredients: req.body.ingredients,
+            preparation: req.body.preparation,
+            information: req.body.information,
+        })
 
-        return res.redirect(`/admin/recipes/${req.body.id}`)
+        //redirect to index
+        const recipes = await Recipe.all()
+
+        async function getImage(recipeId) {
+            let recipeFiles = await RecipeFiles.findFiles(recipeId)
+            const files = recipeFiles.map(file =>
+                `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            )
+            return files[0]
+        }
+
+        const filesPromise = recipes.map(async recipe => {
+            recipe.image = await getImage(recipe.id)
+            return recipe
+        })
+
+        const allRecipes = await Promise.all(filesPromise)
+
+        isAdmin = req.session.isAdmin
+
+        return res.render("admin/recipes/index", {
+            recipes: allRecipes, 
+            isAdmin,
+            success: "Recipe successfully deleted!"
+        })
 
     }catch(err) {
         console.log(err)
@@ -206,21 +259,24 @@ async put(req, res){
 async delete(req, res){
 
     try {
-        const results = await Recipe.files(req.body.id)
-        const deleteFilesPromisse = results.rows.map(file => {
-            File.deleteRecipeFiles(file.id)
+        const recipeFiles = await RecipeFiles.findAll({ where: {recipe_id: req.body.id} })
+
+        const deleteFilesPromisse = recipeFiles.map(recipeFile => {
+            RecipeFiles.delete(recipeFile.id)
+            const file = File.find({ where: recipeFile.file_id })                        
+            unlinkSync(file.path)
             File.delete(file.id)
         })
         await Promise.all(deleteFilesPromisse)
     
         await Recipe.delete(req.body.id)
-        
-        let results = await Recipe.all()
-        const recipes = results.rows
+
+        //redirect to index        
+        const recipes = await Recipe.all()
 
         async function getImage(recipeId) {
-            let results = await Recipe.files(recipeId)
-            const files = results.rows.map(file =>
+            let recipeFiles = await RecipeFiles.findFiles(recipeId)
+            const files = recipeFiles.map(file =>
                 `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
             )
             return files[0]

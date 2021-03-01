@@ -8,7 +8,7 @@ const { hash } = require("bcryptjs")
 module.exports = {
     async index(req, res) {
         try {
-            let results = await User.all()
+            let results = await User.findAll()
             const users = results.rows
 
             isAdmin = req.session.isAdmin
@@ -46,7 +46,7 @@ module.exports = {
                 is_admin
             }
 
-            const userId = await User.create(data)
+            await User.create(data)
 
             //send email with password
             data.name = getFirstName(data.name)
@@ -71,9 +71,10 @@ module.exports = {
                 `
             })
 
-            let results = await User.all()
+            //redirect to index
+            let results = await User.findAll()
             const users = results.rows
-            
+
             isAdmin = req.session.isAdmin
 
             return res.render('admin/users/index', {
@@ -103,8 +104,7 @@ module.exports = {
 
             return res.render("admin/users/edit", { 
                 user, 
-                isAdmin,
-                success: "User edited successfully!"
+                isAdmin
             })
 
         }catch(err) {
@@ -167,7 +167,8 @@ module.exports = {
                 is_admin
             })
 
-            let results = await User.all()
+            //redirect to index
+            let results = await User.findAll()
             const users = results.rows
 
             isAdmin = req.session.isAdmin
@@ -205,7 +206,8 @@ module.exports = {
 
             await User.delete(req.body.id)
 
-            let results = await User.all()
+            //redirect to index
+            let results = await User.findAll()
             const users = results.rows
             
             return res.render("admin/users/index", {

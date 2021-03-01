@@ -1,6 +1,7 @@
-const { date } = require("../../lib/utils.js")
 const Recipe = require("../models/Recipe")
 const Chef = require("../models/Chef")
+
+const { date } = require("../../lib/utils.js")
 
 module.exports = {
     
@@ -11,22 +12,21 @@ module.exports = {
             img_banner: '/assets/chef.png'
         }
         try {
-            let results = await Recipe.all()
-            let recipes = results.rows
+            let recipes = await Recipe.all()
 
             async function getImage(recipeId) {
-                let results = await Recipe.files(recipeId)
-                const files = results.rows.map(file =>
+                let recipeFiles = await RecipeFiles.findFiles(recipeId)
+                const files = recipeFiles.map(file =>
                     `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
                 )
                 return files[0]
             }
-
+    
             const filesPromise = recipes.map(async recipe => {
                 recipe.image = await getImage(recipe.id)
                 return recipe
             })
-
+    
             recipes = await Promise.all(filesPromise)
 
             const recipe = recipes[0]

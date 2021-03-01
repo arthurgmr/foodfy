@@ -4,12 +4,12 @@ const { getFirstName } = require("../../lib/utils")
 
 
 module.exports = {
-    async show(req, res) {
+    show(req, res) {
         const { user, isAdmin } = req
 
         firstNameUser = getFirstName(user.name)
 
-        return res.render('admin/users/profile', { user,firstNameUser, isAdmin })
+        return res.render('admin/users/profile', { user, firstNameUser, isAdmin })
     },
     async update(req, res) {
         const { isAdmin, user } = req
