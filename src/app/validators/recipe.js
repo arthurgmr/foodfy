@@ -76,8 +76,7 @@ async function put(req, res, next) {
 //delete recipe
 async function del(req, res, next) {
     //check req.session.userId is iqual recipe_id
-    const result = await Recipe.find(req.body.id)
-    const recipe = result.rows[0]
+    const recipe = await Recipe.find(req.body.id)
     if(req.session.userId != recipe.user_id && !req.session.isAdmin) {
         return res.redirect('/admin/recipes')
     }

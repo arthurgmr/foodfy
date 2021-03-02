@@ -63,7 +63,7 @@ module.exports = {
                 cpf: req.body.cpf.replace(/\D/g,""),
                 phone: req.body.phone.replace(/\D/g,""),
                 email: req.body.email,
-                file_id: fileId  
+                file_id: fileId[0]  
             })
 
             //redirect to index
@@ -257,6 +257,13 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
             }))
 
+            //redirect to index chef;
+            let chefs = await Chef.all()
+            chefs = chefs.map(chef => ({
+                ...chef,
+                src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
+            }))
+
             isAdmin = req.session.isAdmin
     
             return res.render("admin/chefs/index", { 
@@ -264,6 +271,7 @@ module.exports = {
                 isAdmin,
                 success: "Chef successfully deleted!"
             })
+
         }catch(err) {
             console.log(err)
             return res.render("admin/chefs/index", {

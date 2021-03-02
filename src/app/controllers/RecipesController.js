@@ -196,10 +196,10 @@ async put(req, res){
             removedFiles.splice(lastIndex, 1) //remove comma: [1,2,3]
 
             // remove file in table recipe_files and table files
-            const removedFilesPromise = removedFiles.map(id => {
+            const removedFilesPromise = removedFiles.map(async id => {
                 RecipeFiles.delete(id)
 
-                const file = File.findOne({where: {id}})
+                const file = await File.find(id)
                 
                 //HERE
                 unlinkSync(file.path)
@@ -259,9 +259,9 @@ async delete(req, res){
     try {
         const recipeFiles = await RecipeFiles.findAll({ where: {recipe_id: req.body.id} })
 
-        const deleteFilesPromisse = recipeFiles.map(recipeFile => {
+        const deleteFilesPromisse = recipeFiles.map(async recipeFile => {
             RecipeFiles.delete(recipeFile.id)
-            const file = File.find({ where: recipeFile.file_id })                        
+            const file = await File.find(recipeFile.file_id)                        
             unlinkSync(file.path)
             File.delete(file.id)
         })

@@ -1,4 +1,5 @@
 const Recipe = require("../models/Recipe")
+const RecipeFiles = require("../models/RecipeFiles")
 const Chef = require("../models/Chef")
 
 const { date } = require("../../lib/utils.js")
