@@ -24,7 +24,7 @@ const Base = {
         return table
     },
     async find(id) {
-        const results = await find({ where: id}, this.table)
+        const results = await find({ where: {id}}, this.table)
         return results.rows[0]      
     },
     async findOne(filters) {
@@ -64,7 +64,7 @@ const Base = {
 
             Object.keys(fields).map(key => {
                 // category_id=($1)
-                const line = `${key} = '${fields[key]}`
+                const line = `${key} = '${fields[key]}'`
                 update.push(line)
             })
 

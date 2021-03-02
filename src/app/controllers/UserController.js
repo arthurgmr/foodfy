@@ -8,8 +8,7 @@ const { hash } = require("bcryptjs")
 module.exports = {
     async index(req, res) {
         try {
-            let results = await User.findAll()
-            const users = results.rows
+            const users = await User.findAll()
 
             isAdmin = req.session.isAdmin
 
@@ -159,7 +158,7 @@ module.exports = {
             }
 
             //bollean is_admin
-            (!is_admin) ? is_admin = false : is_admin = true
+            (!is_admin) ? is_admin = false : is_admin = true;
 
             await User.update(user.id, {
                 name,

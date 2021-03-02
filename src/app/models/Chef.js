@@ -22,7 +22,7 @@ Base.init({ table: 'chefs' })
         return results.rows
     },
 
-    async find(id) {
+    async findChef(id) {
         const results = await db.query(`
             SELECT chefs.*, count(recipes) AS total_recipes
             FROM chefs

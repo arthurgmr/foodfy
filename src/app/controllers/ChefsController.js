@@ -95,7 +95,7 @@ module.exports = {
     async show(req, res){
         try {
             //get data chef;
-            const chef = await Chef.find(req.params.id)
+            const chef = await Chef.findChef(req.params.id)
   
             if(!chef) return res.redirect("/admin/chefs")
 
@@ -108,7 +108,7 @@ module.exports = {
 
 
             //get file of chef and add src;
-            let file = await File.find({ where: {id: chef.file_id}})
+            let file = await File.findAll(chef.file_id)
             file = file.map(file => ({
                 ...file,
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
@@ -128,7 +128,7 @@ module.exports = {
 
             //promise to wait run function getImageRecipe;
             const filesRecipesPromise = recipes.map(async recipe => {
-                recipe.image = await getImageRecipe(recipe.id)
+                recipe.image = await getImage(recipe.id)
                 return recipe
             })
             
@@ -153,10 +153,15 @@ module.exports = {
             //find chef with id;
             const chef = await Chef.find(req.params.id)
 
+            //format cpf;
+            chef.cpf = formatCpf(chef.cpf)
+            //format phone;
+            chef.phone = formatPhone(chef.phone)
+
             if(!chef) return res.send("Ricipe not found!") //create page of not found;
 
             //get file of chef and add src;
-            let file = await File.find({ where: {id: chef.file_id}})
+            let file = await File.findAll(chef.file_id)
             file = file.map(file => ({
                 ...file,
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
@@ -180,14 +185,18 @@ module.exports = {
         try {
             //check exists a send new file;
             if(req.files.length != 0) {
-                //if yes, save new file;
-                const fileId = await File.create({...req.files})
+                //save file;
+                const filePromise = req.files.map(file => {
+                    const fileId = File.create({ name: file.filename, path: file.path })
+                    return fileId
+                })
+                const fileId = await Promise.all(filePromise)  
             
                 //delete archive old;    
                 await File.delete(req.body.idFile)
                 
                 //update chef with a new fileId;    
-                await Chef.create(req.body.id, {
+                await Chef.update(req.body.id, {
                     name: req.body.name,
                     cpf: req.body.cpf.replace(/\D/g,""),
                     phone: req.body.phone.replace(/\D/g,""),
@@ -198,7 +207,7 @@ module.exports = {
             } else {
                 
                 //update chef without fileId;
-                await Chef.create(req.body.id, {
+                await Chef.update(req.body.id, {
                     name: req.body.name,
                     cpf: req.body.cpf.replace(/\D/g,""),
                     phone: req.body.phone.replace(/\D/g,""),
@@ -234,10 +243,10 @@ module.exports = {
     async delete(req, res){
         
         try{
-            const file = await File.find({ where: {id: req.body.idFile}})
+            const file = await File.find(req.body.idFile)
             unlinkSync(file.path)
 
-            await File.delete(req.body.file.id)
+            await File.delete(req.body.idFile)
 
             await Chef.delete(req.body.id)
 
