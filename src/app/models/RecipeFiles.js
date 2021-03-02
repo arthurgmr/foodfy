@@ -10,8 +10,8 @@ module.exports = {
     
     ...Base,
 
-    findFiles(recipeId) {
-        const results = db.query (`
+    async findFiles(recipeId) {
+        const results = await db.query (`
             SELECT recipe_files.*, files.*
             FROM recipe_files
             LEFT JOIN files ON (recipe_files.file_id = files.id)

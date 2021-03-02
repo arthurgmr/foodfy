@@ -84,13 +84,12 @@ async post(req, res){
         information
       })
 
-      const filesPromise = req.files.map(file => File.create({...file}))
+      const filesPromise = req.files.map(file => File.create({name: file.filename, path: file.path}))
       const filesResults = await Promise.all(filesPromise)
       
-      const recipeFilePromise = filesResults.map( file => {
-          const fileId = file.rows[0].id
-
-          RecipeFiles.create({recipe_id: recipeId, file_id: fileId})
+      const recipeFilePromise = filesResults.map(async file => {
+        //   const fileId = file.rows[0].id
+          await RecipeFiles.create({recipe_id: recipeId, file_id: file})
       })
 
       await Promise.all(recipeFilePromise)
@@ -117,7 +116,7 @@ async post(req, res){
 
 async show(req, res){
     try {
-        const recipe = await Recipe.find(req.params.id)
+        const recipe = await Recipe.findRecipe(req.params.id)
 
         if(!recipe) return res.send("Ricipe not found!")
 
@@ -144,7 +143,7 @@ async show(req, res){
 async edit(req, res){
 
     try {
-        const recipe = await Recipe.find(req.params.id)
+        const { recipe } = req
 
         if(!recipe) return res.send("Ricipe not found!")
 
@@ -180,14 +179,12 @@ async put(req, res){
         //save new files in table files and table recipe_files
         if(req.files.length != 0) {
             const recipeId = req.body.id
-            const filesPromise = req.files.map(file => File.create({...file}))
+            const filesPromise = req.files.map(file => File.create({name: file.filename, path: file.path}))
             const filesResults = await Promise.all(filesPromise)
 
-            const recipeFilePromise = filesResults.map( file => {
-                const fileId = file.rows[0].id
-      
-                RecipeFiles.create({recipe_id: recipeId, file_id: fileId})
-            })
+            const recipeFilePromise = filesResults.map(async file => {
+                  await RecipeFiles.create({recipe_id: recipeId, file_id: file})
+              })
       
             await Promise.all(recipeFilePromise)
         }
@@ -202,8 +199,9 @@ async put(req, res){
             const removedFilesPromise = removedFiles.map(id => {
                 RecipeFiles.delete(id)
 
-                const file = File.find({ where:id })
-                           
+                const file = File.findOne({where: {id}})
+                
+                //HERE
                 unlinkSync(file.path)
 
                 File.delete(id)

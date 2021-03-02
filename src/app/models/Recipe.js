@@ -19,8 +19,8 @@ Base.init({ table: 'recipes' })
         return results.rows
     },
 
-    async find(id) {
-        const results = db.query(`
+    async findRecipe(id) {
+        const results = await db.query(`
             SELECT recipes.*, chefs.name AS chef_name 
             FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)

@@ -36,11 +36,12 @@ async function post(req, res, next) {
 // edit recipe
 async function edit(req, res, next) {
     //check req.session.userId is iqual recipe_id
-    const result = await Recipe.find(req.params.id)
-    const recipe = result.rows[0]
+    const recipe  = await Recipe.findRecipe(req.params.id)
     if(req.session.userId != recipe.user_id && !req.session.isAdmin) {
         return res.redirect('/admin/recipes')
     }
+
+    req.recipe = recipe
 
     next()
 }
@@ -63,11 +64,12 @@ async function put(req, res, next) {
     }
 
     //check req.session.userId is iqual recipe_id
-    const result = await Recipe.find(req.body.id)
-    const recipe = result.rows[0]
+    const recipe = await Recipe.findRecipe(req.body.id)
     if(req.session.userId != recipe.user_id && !req.session.isAdmin) {
         return res.redirect('/admin/recipes')
     }
+
+    req.recipe = recipe
 
     next()
 }

@@ -44,7 +44,13 @@ const Base = {
                 //keys = name, age, address
                 //values = 'Valeska', '30', 'Rua Alguma Coisa'
                 keys.push(key)
-                values.push(`'${fields[key]}'`)
+                
+                if (Array.isArray(fields[key])) {
+                    const separetWithComma = '","'
+                    values.push(`'{"${fields[key].join(separetWithComma)}"}'`)
+                } else {
+                    values.push(`'${fields[key]}'`)
+                }
             })
 
             const query = `INSERT INTO ${this.table} (${keys.join(',')})
