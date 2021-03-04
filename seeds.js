@@ -23,9 +23,9 @@ async function createFileChef() {
     return fileId
 }
 
-//config chef
-let productsIds = []
-let totalProducts = 10
+//config recipe
+let recipeIds = []
+let totalRecipes = 10
 //function for create recipe file's
 async function createFileRecipe() {
     
@@ -72,39 +72,39 @@ async function createChefs() {
     chefsIds = await Promise.all(chefsPromise)
 }
 
-async function createProducts() {
-    let products = []
+// async function createProducts() {
+//     let products = []
 
-    while (products.length < totalProducts) {
-        products.push({
-            category_id: Math.ceil(Math.random() * 3),
-            user_id: usersIds[Math.floor(Math.random() * totalUsers)],
-            name: faker.name.title(),
-            description: faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
-            old_price: faker.random.number(9999),
-            price: faker.random.number(9999),
-            quantity: faker.random.number(99),
-            status: Math.round(Math.random())
-        })
-    }
+//     while (products.length < totalProducts) {
+//         products.push({
+//             category_id: Math.ceil(Math.random() * 3),
+//             user_id: usersIds[Math.floor(Math.random() * totalUsers)],
+//             name: faker.name.title(),
+//             description: faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
+//             old_price: faker.random.number(9999),
+//             price: faker.random.number(9999),
+//             quantity: faker.random.number(99),
+//             status: Math.round(Math.random())
+//         })
+//     }
 
-    const productsPromise = products.map(product => Product.create(product))
-    productsIds = await Promise.all(productsPromise)
+//     const productsPromise = products.map(product => Product.create(product))
+//     productsIds = await Promise.all(productsPromise)
 
-    let files = []
+//     let files = []
 
-    while(files.length < 50) {
-        files.push({
-            name: faker.image.image(),
-            path: `public/images/placeholder.png`,
-            product_id: productsIds[Math.floor(Math.random() * totalProducts)]
-        })
-    }
+//     while(files.length < 50) {
+//         files.push({
+//             name: faker.image.image(),
+//             path: `public/images/placeholder.png`,
+//             product_id: productsIds[Math.floor(Math.random() * totalProducts)]
+//         })
+//     }
     
-    const filesPromise = files.map(file => File.create(file))
+//     const filesPromise = files.map(file => File.create(file))
 
-    await Promise.all(filesPromise)
-}
+//     await Promise.all(filesPromise)
+// }
 
 async function init() {
     await createUsers()
