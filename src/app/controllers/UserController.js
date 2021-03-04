@@ -71,15 +71,12 @@ module.exports = {
             })
 
             //redirect to index
-            let results = await User.findAll()
-            const users = results.rows
-
-            isAdmin = req.session.isAdmin
-
-            return res.render('admin/users/index', {
-                users,
+            let users = await User.findAll()
+                        
+            return res.render("admin/users/index", {
                 isAdmin,
-                success: 'User registered with success!'
+                users,
+                success: "Account Successfully Deleted"
             })
 
         }catch(err) {
@@ -167,15 +164,12 @@ module.exports = {
             })
 
             //redirect to index
-            let results = await User.findAll()
-            const users = results.rows
-
-            isAdmin = req.session.isAdmin
-
+            let users = await User.findAll()
+                        
             return res.render("admin/users/index", {
                 isAdmin,
                 users,
-                success: "User updated with success!"
+                success: "Account Successfully Deleted"
             })
 
         }catch(err) {
@@ -206,9 +200,8 @@ module.exports = {
             await User.delete(req.body.id)
 
             //redirect to index
-            let results = await User.findAll()
-            const users = results.rows
-            
+            let users = await User.findAll()
+
             return res.render("admin/users/index", {
                 isAdmin,
                 users,

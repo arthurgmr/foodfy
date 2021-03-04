@@ -28,16 +28,17 @@ Base.init({ table: 'recipes' })
         return results.rows[0]
     },
 
-    findBy(filter) {
-        return db.query(`
-        SELECT recipes.*, chefs.name AS chef_name 
-        FROM recipes
-        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        WHERE recipes.title ILIKE '%${filter}%'
-        OR chefs.name ILIKE '%${filter}%'`)
+    async findBy(filter) {
+        const results = await db.query(`
+            SELECT recipes.*, chefs.name AS chef_name 
+            FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            WHERE recipes.title ILIKE '%${filter}%'
+            OR chefs.name ILIKE '%${filter}%'`)
+        return results.rows
     },
 
-    paginate(params) {
+    async paginate(params) {
         const { limit, offset } = params
 
         let query = `
@@ -49,8 +50,9 @@ Base.init({ table: 'recipes' })
         ORDER BY updated_at DESC
         LIMIT $1 OFFSET $2`
 
-        return db.query(query, [limit, offset])
-    
+        const results = await db.query(query, [limit, offset])
+
+        return results.rows   
         
     }
 }

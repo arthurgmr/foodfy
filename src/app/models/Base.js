@@ -16,6 +16,7 @@ function find (filters, table) {
 }
 
 const Base = {
+    
     init({ table }) {
         if(!table) throw new Error('Invalid Params')
 

@@ -84,8 +84,8 @@ async post(req, res){
         information
       })
 
-      const filesPromise = req.files.map(file => File.create({name: file.filename, path: file.path}))
-      const filesResults = await Promise.all(filesPromise)
+      let filesPromise = req.files.map(file => File.create({name: file.filename, path: file.path}))
+      let filesResults = await Promise.all(filesPromise)
       
       const recipeFilePromise = filesResults.map(async file => {
         //   const fileId = file.rows[0].id
@@ -94,15 +94,32 @@ async post(req, res){
 
       await Promise.all(recipeFilePromise)
 
-      const chefsOption = await Chef.findAll()
-  
-      isAdmin = req.session.isAdmin
-  
-      return res.render("admin/recipes/create", {
-          chefsOption, 
-          isAdmin,
-          success: "Recipe successfully created!"
-        })   
+      //redirect to index recipes
+      const recipes = await Recipe.all()
+
+        async function getImage(recipeId) {
+            let recipeFiles = await RecipeFiles.findFiles(recipeId)
+            const files = recipeFiles.map(file =>
+                `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            )
+            return files[0]
+        }
+
+        filesPromise = recipes.map(async recipe => {
+            recipe.image = await getImage(recipe.id)
+            return recipe
+        })
+
+        const allRecipes = await Promise.all(filesPromise)
+
+        isAdmin = req.session.isAdmin
+
+        return res.render("admin/recipes/index", {
+            recipes: allRecipes, 
+            isAdmin,
+            success: "Recipe successfully created!"
+        })
+ 
 
     }catch(err) {
       console.log(err)
@@ -179,8 +196,8 @@ async put(req, res){
         //save new files in table files and table recipe_files
         if(req.files.length != 0) {
             const recipeId = req.body.id
-            const filesPromise = req.files.map(file => File.create({name: file.filename, path: file.path}))
-            const filesResults = await Promise.all(filesPromise)
+            let filesPromise = req.files.map(file => File.create({name: file.filename, path: file.path}))
+            let filesResults = await Promise.all(filesPromise)
 
             const recipeFilePromise = filesResults.map(async file => {
                   await RecipeFiles.create({recipe_id: recipeId, file_id: file})
@@ -230,7 +247,7 @@ async put(req, res){
             return files[0]
         }
 
-        const filesPromise = recipes.map(async recipe => {
+        filesPromise = recipes.map(async recipe => {
             recipe.image = await getImage(recipe.id)
             return recipe
         })

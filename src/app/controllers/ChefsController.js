@@ -108,7 +108,7 @@ module.exports = {
 
 
             //get file of chef and add src;
-            let file = await File.findAll(chef.file_id)
+            let file = await File.findAll({where: {id: chef.file_id}})
             file = file.map(file => ({
                 ...file,
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
@@ -161,7 +161,7 @@ module.exports = {
             if(!chef) return res.send("Ricipe not found!") //create page of not found;
 
             //get file of chef and add src;
-            let file = await File.findAll(chef.file_id)
+            let file = await File.findAll({where: {id: chef.file_id}})
             file = file.map(file => ({
                 ...file,
                 src:`${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
@@ -201,7 +201,7 @@ module.exports = {
                     cpf: req.body.cpf.replace(/\D/g,""),
                     phone: req.body.phone.replace(/\D/g,""),
                     email: req.body.email,
-                    file_id: fileId  
+                    file_id: fileId[0]  
                 })
     
             } else {
@@ -251,14 +251,7 @@ module.exports = {
             await Chef.delete(req.body.id)
 
             //redirect to index
-            let chefs = await Chef.all()
-            chefs = chefs.map(chef => ({
-                ...chef,
-                src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
-            }))
-
-            //redirect to index chef;
-            let chefs = await Chef.all()
+            chefs = await Chef.all()
             chefs = chefs.map(chef => ({
                 ...chef,
                 src: `${req.protocol}://${req.headers.host}${chef.file_path.replace("public", "")}`
