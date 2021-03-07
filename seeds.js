@@ -7,37 +7,40 @@ const Chef = require('./src/app/models/Chef')
 const RecipeFile = require('./src/app/models/RecipeFiles')
 const File = require('./src/app/models/File')
 
-//config user
-let usersIds = []
-let totalUsers = 4
-
-//config chef
-let chefsIds = []
-let totalChefs = 6
-//function for create chef file's
-async function createFileChef() {
+//function for create file in file table
+async function createFile() {
     const fileId = await File.create({
-        name: faker.random.number(999999),
+        name: faker.random.number(9999999999),
         path: `public/images/placeholder.png`
     })
     return fileId
 }
 
+//function for create date in recipe_files table
+
+//config user
+let usersIds = []
+let totalUsers = 5
+
+//config chef
+let chefsIds = []
+let totalChefs = 10
+
 //config recipe
-let recipeIds = []
-let totalRecipes = 10
-//function for create recipe file's
-async function createFileRecipe() {
-    
-}
-
-let files = []
-
+let totalRecipes = 30
 
 
 async function createUsers() {
     const users = []
     const password = await hash('123', 8)
+    const passwordAdmin = await hash('admin', 8)
+
+    users.push({
+        name: faker.name.firstName(),
+        email: 'admin@foodfy.com',
+        password: passwordAdmin,
+        is_admin: true,
+    })
 
     while (users.length < totalUsers) {
         users.push({
@@ -54,8 +57,7 @@ async function createUsers() {
 }
 
 async function createChefs() {
-    const chefs = []
-    const fileId = await createFileChef()
+    let chefs = []
 
     while (chefs.length < totalChefs) {
         chefs.push({
@@ -63,7 +65,7 @@ async function createChefs() {
             cpf: faker.random.number(99999999999),
             phone: faker.random.number(99999999999),
             email: faker.internet.email(),
-            file_id: fileId
+            file_id: await createFile()
         })
     }
 
@@ -72,43 +74,43 @@ async function createChefs() {
     chefsIds = await Promise.all(chefsPromise)
 }
 
-// async function createProducts() {
-//     let products = []
+async function createRecipes() {
+    let recipes = []
+    let recipeFiles = []
+    let totalFileOfRecipe = 3
 
-//     while (products.length < totalProducts) {
-//         products.push({
-//             category_id: Math.ceil(Math.random() * 3),
-//             user_id: usersIds[Math.floor(Math.random() * totalUsers)],
-//             name: faker.name.title(),
-//             description: faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
-//             old_price: faker.random.number(9999),
-//             price: faker.random.number(9999),
-//             quantity: faker.random.number(99),
-//             status: Math.round(Math.random())
-//         })
-//     }
+    while (recipes.length < totalRecipes) {
+        //create recipe with return recipeId;
+        recipes.push({
+            title: faker.name.title(),
+            chef_id: chefsIds[Math.floor(Math.random() * totalChefs)],
+            user_id: usersIds[Math.floor(Math.random() * totalUsers)],
+            featured: faker.random.boolean(),
+            homepage: faker.random.boolean(),
+            ingredients: faker.lorem.paragraph(Math.ceil(Math.random() * 5)).split(". ").map(ingredient => ingredient.replace(".", "")),
+            preparation: faker.lorem.paragraph(Math.ceil(Math.random() * 5)).split(". ").map(preparation => preparation.replace(".", "")),
+            information: faker.lorem.paragraph(Math.ceil(Math.random() * 10)),
+        })
+    }
 
-//     const productsPromise = products.map(product => Product.create(product))
-//     productsIds = await Promise.all(productsPromise)
+    const recipesPromise = recipes.map(recipe => Recipe.create(recipe))
+    const recipeIds = await Promise.all(recipesPromise)
 
-//     let files = []
+    while (recipeFiles.length < totalRecipes * totalFileOfRecipe) {
+        recipeFiles.push({
+            recipe_id: recipeIds[Math.floor(Math.random() * totalRecipes)],
+            file_id: await createFile(),
+        })
+    }
 
-//     while(files.length < 50) {
-//         files.push({
-//             name: faker.image.image(),
-//             path: `public/images/placeholder.png`,
-//             product_id: productsIds[Math.floor(Math.random() * totalProducts)]
-//         })
-//     }
-    
-//     const filesPromise = files.map(file => File.create(file))
-
-//     await Promise.all(filesPromise)
-// }
+    const recipeFilesPromise = recipeFiles.map(recipeFile => RecipeFile.create(recipeFile))
+    await Promise.all(recipeFilesPromise)
+}
 
 async function init() {
     await createUsers()
     await createChefs()
+    await createRecipes()
 }
 
 init()

@@ -88,7 +88,6 @@ async post(req, res){
       let filesResults = await Promise.all(filesPromise)
       
       const recipeFilePromise = filesResults.map(async file => {
-        //   const fileId = file.rows[0].id
           await RecipeFiles.create({recipe_id: recipeId, file_id: file})
       })
 
