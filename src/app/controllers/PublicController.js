@@ -9,7 +9,7 @@ module.exports = {
     
     async index(req, res){
         const index_banner = {
-            title_banner: 'The better recipes',
+            title_banner: 'The best recipes',
             description_banner: 'Learn how to build the best dishes with recipes created by professionals from around the world.',
             img_banner: '/assets/chef.png'
         }
@@ -108,7 +108,7 @@ module.exports = {
         let { page, limit } = req.query
 
         page = page || 1
-        limit = limit || 9
+        limit = limit || 6
         let offset = limit * (page - 1)
 
         const params = {
