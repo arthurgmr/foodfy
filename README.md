@@ -4,10 +4,6 @@
 
 <h1 align="center">Foodfy</h1>
 
-<p>Recipe Website</p>
-
----
-
 <p align="center">
   <a href="LICENSE" >
 <img alt="License" src="https://img.shields.io/badge/license-MIT-%23F8952D">
@@ -66,7 +62,7 @@ The Foodfy project was developed in parallel with [Rocketseat's](https://rockets
 ## :rocket: Run-the-project <a name="-run-the-project" style="text-decoration:none"></a>
 
 
-#### Clonando o repositório
+#### Clone repository
 
 ```bash
 
@@ -81,7 +77,7 @@ $ npm install
 
 ```
 
-#### Configurando o banco de dados
+#### Configuring database
 
 Install [PostgreSQL](https://www.postgresql.org/download/) on your computer.
 
@@ -136,7 +132,7 @@ $ npm start
 
 ```
 
-#### Observações
+#### Note
 
 By accessing *localhost: 3000* you will be in the public section of foodfy. To access the administrative sector, enter *localhost: 3000/admin*. The default system administrator has the email *admin@foodfy.com* and password *admin*. The other users that are automatically generated have random emails and password *123*.
 
