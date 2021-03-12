@@ -140,7 +140,7 @@ It may be that when you delete one of the records automatically generated with t
 
 ---
 
-## :closed_book: Licença <a name="-licenca" style="text-decoration:none"></a>
+## :closed_book: License <a name="-license" style="text-decoration:none"></a>
 
 
 Released in 2021. This project is under the [MIT license](https://github.com/arthurgmr/foodfy/blob/master/LICENSE).
