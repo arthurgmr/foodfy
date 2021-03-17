@@ -22,7 +22,7 @@
 
 ## 🗒 About the project <a name="-about-the-project" style="text-decoration:none"></a>
 
-The Foodfy project was developed in parallel with [Rocketseat's](https://rocketseat.com.br/) Bootcamp and had as its final challenge its delivery. The website was developed with a full JavaScript stack and has several administrative features, such as user control, Chef registration, recipe registration, among others.
+The Foodfy project was developed in parallel with [Rocketseat's](https://rocketseat.com.br/) Bootcamp and had as final challenge the delivery. The website was developed with a full JavaScript stack and has several administrative features, such as: user control, Chef registration, recipe registration, among others.
 
 ---
 
