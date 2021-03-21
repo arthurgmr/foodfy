@@ -1,5 +1,3 @@
-
-
 // BOLD EFFECT IN ITEMS OF MENU
 const menuItens = document.querySelectorAll("header div #item")
 if(menuItens) {
@@ -382,6 +380,27 @@ const Validate = {
         return {
             error,
             value
+        }
+    },
+    allFields(e) {
+        const itens = document.querySelectorAll('.section-images input, .section input, .section select, .section textarea')
+
+        for (item of itens) {
+            if(item.value == "") {
+                const message = document.createElement('div')
+                message.classList.add('messages')
+                message.classList.add('error')
+                message.style.position = 'fixed'
+
+                const p = document.createElement('P')
+                p.innerText = "Please, fill all fields!"
+
+                message.append(p)
+                
+                document.querySelector('body').append(message)
+
+                e.preventDefault()
+            }
         }
     }
 
