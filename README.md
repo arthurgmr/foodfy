@@ -3,6 +3,7 @@
 </h1>
 
 <h1 align="center">Foodfy</h1>
+<p>🍴 Recipes site with administrative functions</p>
 
 <p align="center">
   <a href="LICENSE" >
